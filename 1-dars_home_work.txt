@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+HTML5 hujjatining boshlanishi. Bu tag veb-brauzerga sahifaning HTML5 formatida yozilganligini bildiradi.
+
+<html>
+Hujjatning asosiy konteyneri. Barcha HTML kodlari ushbu tag ichida yoziladi
+
+<head>
+Hujjatning bosh qismi. Meta ma'lumotlar, uslublar, skriptlar va boshqalar shu yerda bo'ladi
+
+<title>
+Hujjatning nomi. Brauzerning sarlavha panelida ko'rsatiladi
+
+<body>
+Sahifaning asosiy qismi. Boshqaruvchi ma'lumot va kontent shu yerda bo'ladi
+
+<h1>, <h2>, ..., <h6>
+Sarlavhalar. <h1> eng yuqori darajadagi sarlavha, <h6> esa eng past darajadagi sarlavha
+
+<p>
+Paragraf. Paragrafni boshlash uchun ishlatiladi
+
+<a>
+Havola. Havolani boshlash uchun ishlatiladi
+
+<img>
+Rasm. Rasmni kiritish yoki yuklab olish uchun ishlatiladi
+
+<div>
+Blok. Blokni boshlash uchun ishlatiladi
