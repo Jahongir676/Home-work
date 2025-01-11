@@ -1,192 +1,159 @@
-// function minRemoveToMakeValid(s) {
-//     const arr = s.split('');
-//     let openCount = 0;
-
-//     for (let i = 0; i < arr.length; i++) {
-//         if (arr[i] === '(') {
-//             openCount++;
-//         } else if (arr[i] === ')') {
-//             if (openCount === 0) {
-//                 arr[i] = '';
-//             } else {
-//                 openCount--;
-//             }
-//         }
-//     }
-//     openCount = 0;
-//     for (let i = arr.length - 1; i >= 0; i--) {
-//         if (arr[i] === ')') {
-//             openCount++;
-//         } else if (arr[i] === '(') {
-//             if (openCount === 0) {
-//                 arr[i] = '';
-//             } else {
-//                 openCount--;
-//             }
-//         }
-//     }
-
-//     return arr.join('');
+// function numberSplit(num){
+//     return [Math.floor(num/2),Math.ceil(num/2)]
 // }
+// const number = numberSplit(-9)
+// console.log(number)
 
-// console.log(minRemoveToMakeValid("lee(t(c)o)de)"));
-// console.log(minRemoveToMakeValid("a)b(c)d"));  
-// console.log(minRemoveToMakeValid("))(("));
+//                      2-SAVOL:
+// function sumofCubes(arr){
+//     let sum = 0
+//     for(let i = 0; i < arr.length; i++){
+//         sum += Math.pow(arr[i],3)
+//     }
+//     return sum
+// }
+// const arr = []
+// console.log(sumofCubes(arr))
 
-//                  2-SAVOL:
-// function romanToInt(s) {
-//     const romanMap = {
-//         'I': 1,
-//         'V': 5,
-//         'X': 10,
-//         'L': 50,
-//         'C': 100,
-//         'D': 500,
-//         'M': 1000
-//     };
-
-//     let total = 0;
-//     for (let i = 0; i < s.length; i++) {
-//         let current = romanMap[s[i]];
-//         let next = romanMap[s[i + 1]];
-
-//         if (next && current < next) {
-//             total -= current;
-//         } else {
-//             total += current;
+//                      3-SAVOL:
+// function minMax(arr){
+//     let min = arr[0]
+//     let max = arr[0]
+//     for(let i = 0; i < arr.length; i++){
+//         if(arr[i] < min){
+//             min = arr[i]
+//         }
+//         if(arr[i] > max){
+//             max = arr[i]
 //         }
 //     }
-
-//     return total;
+//     return [min,max]
 // }
-
-// console.log(romanToInt("III"));
-// console.log(romanToInt("LVIII"));
-// console.log(romanToInt("MCMXCIV"));
-
-// //                  3-SAVOL:
-// function containsNearbyDuplicate(nums, k) {
-//     const map = new Map();
-
-//     for (let i = 0; i < nums.length; i++) {
-//         if (map.has(nums[i]) && i - map.get(nums[i]) <= k) {
-//             return true;
-//         }
-//         map.set(nums[i], i);
-//     }
-
-//     return false;
-// }
-
-// console.log(containsNearbyDuplicate([1, 2, 3, 1], 3));
-// console.log(containsNearbyDuplicate([1, 0, 1, 1], 1));
-// console.log(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2));
+// const arr = [2334454, 5]
+// console.log(minMax(arr)) 
 
 //                      4-SAVOL:
-// function splitWord(word) {
-//     if (word.length > 10) {
-//         let mid = Math.floor(word.length / 2);
-//         if (word.length % 2 !== 0) mid += 1;
-//         return word.slice(0, mid) + '-' + word.slice(mid);
-//     }
-//     return word;
-// }
-
-// function splitTextByHyphen(text) {
-//     return text.split(' ').map(splitWord).join(' ');
-// }
-
-// let testCases = [
-//     "Assalomu Alaykum Javohir",
-//     "Robocontest contest",
-//     "Bilmasvoyta'tilda"
-// ];
-
-// let results = testCases.map(splitTextByHyphen);
-// console.log(results);
-
-//                          5-SAVOL:
-// function getAsciiCode(input) {
-//     if (typeof input === 'string' && input.length === 1) {
-//         return input.charCodeAt(0);
-//     } else if (typeof input === 'number') {
-//         return input.toString().charCodeAt(0);
-//     } else {
-//         return 'Iltimos, bitta belgi yoki raqam kiriting.';
-//     }
-// }
-
-// console.log(getAsciiCode('A'));
-// console.log(getAsciiCode(5));
-// console.log(getAsciiCode('9'));
-
-//                          6-SAVOL:
-// function insertSpace(str) {
-//     return str.replace(/([a-z])([A-Z])/g, '$1 $2');
-// }
-
-// console.log(insertSpace("helloWorld"));
-// console.log(insertSpace("thisIsAString"));
-
-//                          7-SAVOL:
-function solveEquation(equation) {
-    const [left, right] = equation.split('=');
-    const leftResult = simplify(left);
-    const rightResult = simplify(right);
-
-    const coefficient = leftResult.coefficient - rightResult.coefficient;
-    const constant = rightResult.constant - leftResult.constant;
-
-    if (coefficient === 0) {
-        return constant === 0 ? "Infinite solutions" : "No solution";
-    } else {
-        return `x=${constant / coefficient}`;
-    }
-}
-
-// function simplify(expr) {
-//     let coefficient = 0;
-//     let constant = 0;
-//     const n = expr.length;
-//     let i = 0;
-
-//     while (i < n) {
-//         if (expr[i] === 'x') {
-//             coefficient += 1;
-//             i++;
-//         } else if (expr[i] === '-') {
-//             if (i + 1 < n && expr[i + 1] === 'x') {
-//                 coefficient -= 1;
-//                 i += 2;
-//             } else {
-//                 const numStart = i + 1;
-//                 while (i + 1 < n && !isNaN(expr[i + 1])) {
-//                     i++;
-//                 }
-//                 constant -= parseInt(expr.substring(numStart, i + 1));
-//                 i++;
-//             }
-//         } else if (expr[i] === '+') {
-//             if (i + 1 < n && expr[i + 1] === 'x') {
-//                 coefficient += 1;
-//                 i += 2;
-//             } else {
-//                 const numStart = i + 1;
-//                 while (i + 1 < n && !isNaN(expr[i + 1])) {
-//                     i++;
-//                 }
-//                 constant += parseInt(expr.substring(numStart, i + 1));
-//                 i++;
-//             }
-//         } else {
-//             i++;
+// function FindPrimeNumber(arr){
+//     for(let i = 0; i < arr.length; i++){
+//         if(arr[i] % 2 !== 0){
+//             return arr[i]
 //         }
 //     }
+// }
+// const arr = [4, 12, 42, 9,12, 3]
+// console.log(FindPrimeNumber(arr))
 
-//     return { coefficient, constant };
+//                      5-SAVOL:
+// function increase(arr){
+//     let result = 0
+//     for(let i = 0; i < arr[1]; i++){
+//         result += arr[0]
+//     }
+//     return result
+// }
+// const arr = [3, 4]
+// console.log(increase(arr))
+
+//                      6-SAVOL:
+// function separateVowelsAndConsonants(arr) {
+//     const vowels = 'aeiouAEIOU';
+//     const result = [];
+
+//     for (let word of arr) {
+//         const wordVowels = [];
+//         const wordConsonants = [];
+
+//         for (let char of word) {
+//             if (vowels.includes(char)) {
+//                 wordVowels.push(char);
+//             }
+//         }
+//         result.push(wordVowels);
+//     }
+
+//     return result;
+// }
+// const arr = ["Assalomu alaykum", "salom", "Najot ta'lim"];
+// console.log(separateVowelsAndConsonants(arr));
+
+//                          7-SAVOL:
+// function formatPhoneNumber(arr) {
+//     if (arr.length !== 10 || !arr.every(num => num >= 0 && num <= 9)) {
+//         return "Invalid input";
+//     }
+//     return `(${arr.slice(0, 3).join('')}) ${arr.slice(3, 6).join('')}-${arr.slice(6).join('')}`;
+// }
+// const phoneNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+// console.log(formatPhoneNumber(phoneNumbers));
+
+//                          8-SAVOL:
+// function spellOutWord(word) {
+//     const result = [];
+//     for (let i = 1; i <= word.length; i++) {
+//         result.push(word.slice(0, i));
+//     }
+//     return result;
+// }
+// const word = "bee";
+// console.log(spellOutWord(word));
+
+//                          9-SAVOL:    
+// function chatroomStatus(users) {
+//     const count = users.length;
+    
+//     if (count === 0) {
+//         return "no one online";
+//     } else if (count === 1) {
+//         return `${users[0]} online`;
+//     } else if (count === 2) {
+//         return `${users[0]} and ${users[1]} online`;
+//     } else {
+//         return `${users[0]}, ${users[1]} and ${count - 2} more online`;
+//     }
+// }
+// console.log(chatroomStatus([]));
+// console.log(chatroomStatus(["paRIE_to"]));
+// console.log(chatroomStatus(["s234f", "mailbox2"]));
+// console.log(chatroomStatus(["pap_ier44", "townieBOY", "panda321", "motor_bike5", "sandwichmaker833", "violinist91"]));
+//                          10-SAVOL:
+// function countTrue(arr) {
+//     return arr.filter(Boolean).length;
 // }
 
-// // Example test cases
-// console.log(solveEquation("x+5-3+x=6+x-2"));
-// console.log(solveEquation("x=x"));
-// console.log(solveEquation("2x=x"));
+// console.log(countTrue([true, false, false, true, false]));
+
+//                          11-SAVOL:
+// function tubSonlarniTopish(arr) {
+//     function tubSonmi(num) {
+//         if (num < 2) return false;
+//         for (let i = 2; i <= Math.sqrt(num); i++) {
+//             if (num % i === 0) return false;
+//         }
+//         return true;
+//     }
+
+//     return arr.filter(tubSonmi);
+// }
+// const sonlar = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+// console.log(tubSonlarniTopish(sonlar));
+
+//                          12-SAVOL:
+// function arrayMultiplier(arr) {
+//     return function(num) {
+//         return arr.map(item => item * num);
+//     };
+// }
+// const myArray = [1, 2, 3, 4, 5];
+// const multiply = arrayMultiplier(myArray);
+// console.log(multiply(2));
+// console.log(multiply(3));
+// console.log(multiply(5));
+
+//                          13-SAVOL:
+// function topilmaganRaqam(raqamlar) {
+//     const n = raqamlar.length;
+//     const kutilganYigindi = (n * (n + 1)) / 2;
+//     const haqiqiyYigindi = raqamlar.reduce((sum, num) => sum + num, 0);
+//     return kutilganYigindi - haqiqiyYigindi;
+// }
+// console.log(topilmaganRaqam([9,6,4,2,3,5,7,0,1]));
