@@ -1,113 +1,192 @@
-// function sortDrinksByPrice(drinks) {
-//     return drinks.sort((a, b) => a.price - b.price);
-// }
-// const drinks = [
-//     {name: 'lemonade', price: 50},
-//     {name: 'lime', price: 10}
-// ]
-// console.log(SortSalarys(drinks));
+// function minRemoveToMakeValid(s) {
+//     const arr = s.split('');
+//     let openCount = 0;
 
-//                      2-SAVOL:
-// function ObjectToArray(object) {
-//     return Object.entries(object);
-// }
-// const person = {
-//     name: 'John',
-//     age: 30,
-//     city: 'New York'
-// };
-// console.log(ObjectToArray(person));
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i] === '(') {
+//             openCount++;
+//         } else if (arr[i] === ')') {
+//             if (openCount === 0) {
+//                 arr[i] = '';
+//             } else {
+//                 openCount--;
+//             }
+//         }
+//     }
+//     openCount = 0;
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         if (arr[i] === ')') {
+//             openCount++;
+//         } else if (arr[i] === '(') {
+//             if (openCount === 0) {
+//                 arr[i] = '';
+//             } else {
+//                 openCount--;
+//             }
+//         }
+//     }
 
-//                      3-SAVOL:
-// let arr = []
-// let users = [
-//     { name: "John", email: "john@example.com" },
-//     { name: "Jason", email: "jason@example.com" },
-//     { name: "Jeremy", email: "jeremy@example.com" },
-//     { name: "Jacob", email: "jacob@example.com" }
-// ]
-// for (let i = 0; i < users.length; i++) {
-//     arr.push(users[i].name)
+//     return arr.join('');
 // }
-// console.log(arr);
+
+// console.log(minRemoveToMakeValid("lee(t(c)o)de)"));
+// console.log(minRemoveToMakeValid("a)b(c)d"));  
+// console.log(minRemoveToMakeValid("))(("));
+
+//                  2-SAVOL:
+// function romanToInt(s) {
+//     const romanMap = {
+//         'I': 1,
+//         'V': 5,
+//         'X': 10,
+//         'L': 50,
+//         'C': 100,
+//         'D': 500,
+//         'M': 1000
+//     };
+
+//     let total = 0;
+//     for (let i = 0; i < s.length; i++) {
+//         let current = romanMap[s[i]];
+//         let next = romanMap[s[i + 1]];
+
+//         if (next && current < next) {
+//             total -= current;
+//         } else {
+//             total += current;
+//         }
+//     }
+
+//     return total;
+// }
+
+// console.log(romanToInt("III"));
+// console.log(romanToInt("LVIII"));
+// console.log(romanToInt("MCMXCIV"));
+
+// //                  3-SAVOL:
+// function containsNearbyDuplicate(nums, k) {
+//     const map = new Map();
+
+//     for (let i = 0; i < nums.length; i++) {
+//         if (map.has(nums[i]) && i - map.get(nums[i]) <= k) {
+//             return true;
+//         }
+//         map.set(nums[i], i);
+//     }
+
+//     return false;
+// }
+
+// console.log(containsNearbyDuplicate([1, 2, 3, 1], 3));
+// console.log(containsNearbyDuplicate([1, 0, 1, 1], 1));
+// console.log(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2));
 
 //                      4-SAVOL:
-// function AddYears(users){
-//     let n = Number(prompt("Istalgan son kiriting: "))
-//     return users.map(user => ({...user, age: user.age + n}))
+// function splitWord(word) {
+//     if (word.length > 10) {
+//         let mid = Math.floor(word.length / 2);
+//         if (word.length % 2 !== 0) mid += 1;
+//         return word.slice(0, mid) + '-' + word.slice(mid);
+//     }
+//     return word;
 // }
-// let users ={
-//     name: "John", email: "john@example.com",age: 30, 
-//     name: "Jason", email: "jason@example.com",age: 28, 
-//     name: "Jeremy", email: "jeremy@example.com",age: 25,
-//     name: "Jacob", email: "jacob@example.com",age: 22,
-// }
-// console.log(AddYears(users));
 
-//                      5-SAVOL:
-// const database = {
-//     studentsList: {
-//         'xamidullo': {
-//             name: "xamidullo",
-//             age: 33,
-//             id: 123,
-//             tolov: false
-//         }
-//     },
-//     create(user) {
-//         if (!this.studentsList[user.name]) {
-//             this.studentsList[user.name] = user;
-//         }
-//         return this.studentsList;
-//     },
-//     read(name) {
-//         return this.studentsList[name] || "User not found!";
-//     },
-//     update(name, user) {
-//         if (this.studentsList[name]) {
-//             this.studentsList[name] = { ...this.studentsList[name], ...user };
-//         }
-//         return this.studentsList[name] || "User not found!";
-//     },
-//     delete(name) {
-//         if (this.studentsList[name]) {
-//             delete this.studentsList[name];
-//             return `User ${name} deleted!`;
+// function splitTextByHyphen(text) {
+//     return text.split(' ').map(splitWord).join(' ');
+// }
+
+// let testCases = [
+//     "Assalomu Alaykum Javohir",
+//     "Robocontest contest",
+//     "Bilmasvoyta'tilda"
+// ];
+
+// let results = testCases.map(splitTextByHyphen);
+// console.log(results);
+
+//                          5-SAVOL:
+// function getAsciiCode(input) {
+//     if (typeof input === 'string' && input.length === 1) {
+//         return input.charCodeAt(0);
+//     } else if (typeof input === 'number') {
+//         return input.toString().charCodeAt(0);
+//     } else {
+//         return 'Iltimos, bitta belgi yoki raqam kiriting.';
+//     }
+// }
+
+// console.log(getAsciiCode('A'));
+// console.log(getAsciiCode(5));
+// console.log(getAsciiCode('9'));
+
+//                          6-SAVOL:
+// function insertSpace(str) {
+//     return str.replace(/([a-z])([A-Z])/g, '$1 $2');
+// }
+
+// console.log(insertSpace("helloWorld"));
+// console.log(insertSpace("thisIsAString"));
+
+//                          7-SAVOL:
+function solveEquation(equation) {
+    const [left, right] = equation.split('=');
+    const leftResult = simplify(left);
+    const rightResult = simplify(right);
+
+    const coefficient = leftResult.coefficient - rightResult.coefficient;
+    const constant = rightResult.constant - leftResult.constant;
+
+    if (coefficient === 0) {
+        return constant === 0 ? "Infinite solutions" : "No solution";
+    } else {
+        return `x=${constant / coefficient}`;
+    }
+}
+
+// function simplify(expr) {
+//     let coefficient = 0;
+//     let constant = 0;
+//     const n = expr.length;
+//     let i = 0;
+
+//     while (i < n) {
+//         if (expr[i] === 'x') {
+//             coefficient += 1;
+//             i++;
+//         } else if (expr[i] === '-') {
+//             if (i + 1 < n && expr[i + 1] === 'x') {
+//                 coefficient -= 1;
+//                 i += 2;
+//             } else {
+//                 const numStart = i + 1;
+//                 while (i + 1 < n && !isNaN(expr[i + 1])) {
+//                     i++;
+//                 }
+//                 constant -= parseInt(expr.substring(numStart, i + 1));
+//                 i++;
+//             }
+//         } else if (expr[i] === '+') {
+//             if (i + 1 < n && expr[i + 1] === 'x') {
+//                 coefficient += 1;
+//                 i += 2;
+//             } else {
+//                 const numStart = i + 1;
+//                 while (i + 1 < n && !isNaN(expr[i + 1])) {
+//                     i++;
+//                 }
+//                 constant += parseInt(expr.substring(numStart, i + 1));
+//                 i++;
+//             }
 //         } else {
-//             return "User not found!";
+//             i++;
 //         }
 //     }
-// }
-// database.create({
-//     name: "azizbek",
-//     age: 21,
-//     id: 456,
-//     tolov: true
-// });
-// database.update("xamidullo", {
-//     name: "xamidullo",
-//     age: 34,
-//     tolov: true
-// });
-// console.log(database.read("xamidullo"));
-// database.delete("xamidullo");
-// console.log(database.studentsList);
 
-//                      6-SAVOL:
-// function dubleStr(str) {
-//     let arr = []
-//     for (let i = 0; i < str.length; i++) {
-//         arr.push(str[i] + str[i])
-//     }
-//     return arr.join("")
+//     return { coefficient, constant };
 // }
-// const str = "String"
-// console.log(dubleStr(str))
 
-//                      7-SAVOL:
-// function isTitleString(title) {
-//     return title.split(' ').every(word => word[0] === word[0].toUpperCase());
-// }
-// const title = "A Mind Boggling Achievement"
-// console.log(isTitleString(title))
-
+// // Example test cases
+// console.log(solveEquation("x+5-3+x=6+x-2"));
+// console.log(solveEquation("x=x"));
+// console.log(solveEquation("2x=x"));
