@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1C2B3B;
+    color: white;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: #2D3E50;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.company-types {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.type {
+    background-color: #3D5063;
+    color: white;
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.type.active {
+    background-color: #00AA66;
+}
+
+.div1{
+    display: block;
+    justify-content: space-evenly
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    color: #000;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #00AA66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.benefits {
+    margin-top: 20px;
+}
+
+.benefit {
+    background-color: #3D5063;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.benefit h4 {
+    margin-bottom: 5px;
+}
+.footer {
+    margin-top: 40px;
+    background-color: #2D3E50;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.social-networks h4 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons img {
+    width: 40px;
+    height: 40px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.footer-links div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.footer-logo {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    font-size: 12px;
+}
