@@ -1,189 +1,113 @@
-// function calc(n){
-//     return function(m){
-//         let arr= []
-//         for(let i=1;i<=n;i++){
-//             arr.push(m*i)
-//         }
-//         return arr;
-//     }
+// function sortDrinksByPrice(drinks) {
+//     return drinks.sort((a, b) => a.price - b.price);
 // }
-// const num = calc(5)(10);
-// console.log(num);
+// const drinks = [
+//     {name: 'lemonade', price: 50},
+//     {name: 'lime', price: 10}
+// ]
+// console.log(SortSalarys(drinks));
 
-//                   2-SAVOL:
-// function primeSum(n) {
-//     return function(m) {
-//         let sum = 0;
-//         function isPrime(num) {
-//             if (num < 2) return false;
-//             for (let i = 2; i <= Math.sqrt(num); i++) {
-//                 if (num % i === 0) return false;
-//             }
-//             return true;
-//         }
-//         for (let i = n; i <= m; i++) {
-//             if (isPrime(i)) {
-//                 sum += i;
-//             }
-//         }
-//         return sum;
-//     }
+//                      2-SAVOL:
+// function ObjectToArray(object) {
+//     return Object.entries(object);
 // }
-// const closure = primeSum(1);
-// const result = closure(10);
-// console.log(result);
-
-//                   3-SAVOL:
-// function hasExactCommonLetters(str1) {
-//     return function(str2) {
-//         if (str1.length !== str2.length) return false;
-//         let set1 = new Set(str1);
-//         let set2 = new Set(str2);
-//         if (set1.size !== set2.size) return false;
-//         for (let char of set1) {
-//             if (!set2.has(char)) {
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
-// }
-// const closure = hasExactCommonLetters("apple");
-// const result = closure("elppa");
-// console.log(result);
-
-//                  4-SAVOL:
-// function fibonacci(n) {
-//     if (n <= 0) return 0;
-//     if (n === 1) return 1;
-//     return fibonacci(n - 1) + fibonacci(n - 2);
-// }
-// const result = fibonacci(5);
-// console.log(result);
-
-//                  5-SAVOL:
-// function findClosest(n) {
-//     return function(m) {
-//         let closest = n[0];
-//         let minDiff = Math.abs(m - closest);
-
-//         for (let i = 1; i < n.length; i++) {
-//             const diff = Math.abs(m - n[i]);
-//             if (diff < minDiff) {
-//                 minDiff = diff;
-//                 closest = n[i];
-//             }
-//         }
-
-//         return closest;
-//     }
-// }
-// const closure = findClosest([1, 3, 7, 10, 15]);
-// const result = closure(8);
-// console.log(result);
-
-//                  6-SAVOL:
-// function generateMultiples(num, length) {
-//     const multiples = [];
-//     for (let i = 1; multiples.length < length; i++) {
-//         multiples.push(num * i);
-//     }
-//     return multiples;
-// }
-
-// const result = generateMultiples(3, 5);
-// console.log(result);
-
-//                 7-SAVOL:
-// function reverseWords(str) {
-//     return str.split(' ').reverse().join(' ');
-// }
-
-// const result = reverseWords("Hello World from Jahongir");
-// console.log(result);
-
-//                 8-SAVOL:
-// function calculateBurglary(stolenItems) {
-//     const total = Object.values(stolenItems).reduce((sum, value) => sum + value, 0);
-//     return total > 0 ? total : "Lucky you!";
-// }
-
-// const stolen = {
-//     jewelry: 5000,
-//     electronics: 3000,
-//     art: 7000
+// const person = {
+//     name: 'John',
+//     age: 30,
+//     city: 'New York'
 // };
+// console.log(ObjectToArray(person));
 
-// const result = calculateBurglary(stolen);
-// console.log(result);
-
-//                 9-SAVOL:
-// function removeABC(str) {
-//     const modified = str.replace(/[abc]/gi, '');
-//     return modified.length < str.length ? modified : null;
+//                      3-SAVOL:
+// let arr = []
+// let users = [
+//     { name: "John", email: "john@example.com" },
+//     { name: "Jason", email: "jason@example.com" },
+//     { name: "Jeremy", email: "jeremy@example.com" },
+//     { name: "Jacob", email: "jacob@example.com" }
+// ]
+// for (let i = 0; i < users.length; i++) {
+//     arr.push(users[i].name)
 // }
+// console.log(arr);
 
-// const result = removeABC("abcdefg");
-// console.log(result);
-
-//                 10-SAVOL:
-// function capitalizeNames(names) {
-//     return names.map(name => name.charAt(0).toUpperCase() + name.slice(1).toLowerCase());
+//                      4-SAVOL:
+// function AddYears(users){
+//     let n = Number(prompt("Istalgan son kiriting: "))
+//     return users.map(user => ({...user, age: user.age + n}))
 // }
-
-// const result = capitalizeNames(["alice", "bob", "charlie"]);
-// console.log(result);
-
-//                 11-SAVOL:    
-// function uniquePositiveNumbers(arr) {
-//     const uniquePositives = [...new Set(arr.filter(num => num > 0))];
-//     return uniquePositives;
+// let users ={
+//     name: "John", email: "john@example.com",age: 30, 
+//     name: "Jason", email: "jason@example.com",age: 28, 
+//     name: "Jeremy", email: "jeremy@example.com",age: 25,
+//     name: "Jacob", email: "jacob@example.com",age: 22,
 // }
+// console.log(AddYears(users));
 
-// const result = uniquePositiveNumbers([1, -1, 2, 2, 3, 4, -2, 3, 5]);
-// console.log(result);
-
-//                 12-SAVOL:
-// function doubleFactorial(num) {
-//     if (num < 0) return undefined;
-//     if (num === 0 || num === 1) return 1;
-//     return num * doubleFactorial(num - 2);
-// }
-
-// const result = doubleFactorial(7);
-// console.log(result);
-
-//                 13-SAVOL:    
-// function productOfNumbers(str) {
-//     const numbers = str.split(', ').map(Number);
-//     return numbers.reduce((product, num) => product * num, 1);
-// }
-
-// const result = productOfNumbers("2, 3, 4");
-// console.log(result);
-
-//                 14-SAVOL:
-// function range(start, end) {
-//     const result = [];
-//     for (let i = start; i <= end; i++) {
-//         result.push(i);
-//     }
-//     return result;
-// }
-
-// const result = range(5, 10);
-// console.log(result);
-
-//                 15-SAVOL:
-// function findFactors(num) {
-//     const factors = [];
-//     for (let i = 1; i <= num; i++) {
-//         if (num % i === 0) {
-//             factors.push(i);
+//                      5-SAVOL:
+// const database = {
+//     studentsList: {
+//         'xamidullo': {
+//             name: "xamidullo",
+//             age: 33,
+//             id: 123,
+//             tolov: false
+//         }
+//     },
+//     create(user) {
+//         if (!this.studentsList[user.name]) {
+//             this.studentsList[user.name] = user;
+//         }
+//         return this.studentsList;
+//     },
+//     read(name) {
+//         return this.studentsList[name] || "User not found!";
+//     },
+//     update(name, user) {
+//         if (this.studentsList[name]) {
+//             this.studentsList[name] = { ...this.studentsList[name], ...user };
+//         }
+//         return this.studentsList[name] || "User not found!";
+//     },
+//     delete(name) {
+//         if (this.studentsList[name]) {
+//             delete this.studentsList[name];
+//             return `User ${name} deleted!`;
+//         } else {
+//             return "User not found!";
 //         }
 //     }
-//     return factors;
 // }
+// database.create({
+//     name: "azizbek",
+//     age: 21,
+//     id: 456,
+//     tolov: true
+// });
+// database.update("xamidullo", {
+//     name: "xamidullo",
+//     age: 34,
+//     tolov: true
+// });
+// console.log(database.read("xamidullo"));
+// database.delete("xamidullo");
+// console.log(database.studentsList);
 
-// const result = findFactors(12);
-// console.log(result);
+//                      6-SAVOL:
+// function dubleStr(str) {
+//     let arr = []
+//     for (let i = 0; i < str.length; i++) {
+//         arr.push(str[i] + str[i])
+//     }
+//     return arr.join("")
+// }
+// const str = "String"
+// console.log(dubleStr(str))
+
+//                      7-SAVOL:
+// function isTitleString(title) {
+//     return title.split(' ').every(word => word[0] === word[0].toUpperCase());
+// }
+// const title = "A Mind Boggling Achievement"
+// console.log(isTitleString(title))
+
