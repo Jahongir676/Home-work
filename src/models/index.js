@@ -1,1 +1,2 @@
-export * from "./user.model.js"
+export * from './categoryModel.js';
+export * from './authorModel.js';

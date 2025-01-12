@@ -1,1 +1,2 @@
-export * from "./auth.controllers.js"
+export * from './authorController.js';
+export * from './categoryController.js';
