@@ -1,1 +1,2 @@
-export * from "./auth.routes.js"
+export * from './authorRouter.js';
+export * from './categoryRouter.js';
