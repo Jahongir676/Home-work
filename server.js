@@ -1,23 +1,27 @@
 import express from "express";
-import dotenv from "dotenv";
-import { authRouter, debtRouter, profileRouter } from "./routes/index.js";
-dotenv.config();
+import { config } from "dotenv";
+import {productsRouter} from './ruters/index.js'
 
-const PORT = process.env.PORT;
+config()
 
-const app = express();
-app.use(express.json());
+const PORT = process.env.PORT
+const app = express()
+app.use(express.json())
 
-app.use("/auth", authRouter);
-app.use("/profile", profileRouter);
-app.use("/debt", debtRouter);
 
-app.use((err, req, res, next) => {
-  if (err) res.status(400).send({ message: err.message });
+app.use("/products", productsRouter)
 
-  res.status(404).send({ message: "Not found" });
-});
+
+
+app.use((err, req, res) => {
+  if (err)
+    return res.send({ message: err.message })
+
+  return res.status(404).send({
+    message: "NOT FOUND"
+  })
+})
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port:${PORT}`);
-});
+  console.log(`Server is running on port: ${PORT} http://localhost:${PORT}`)
+})

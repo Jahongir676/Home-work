@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "module": "A14 Bionic",
+      "price": 999,
+      "company": "Apple"
+    },
+    {
+      "id": 2,
+      "module": "Snapdragon 8 Gen 2",
+      "price": 1199,
+      "company": "Samsung"
+    },
+    {
+      "id": 3,
+      "module": "Google Tensor G3",
+      "price": 899,
+      "company": "Google"
+    },
+    {
+      "id": 4,
+      "module": "Dimensity 9200",
+      "price": 749,
+      "company": "OnePlus"
+    },
+    {
+      "id": 5,
+      "module": "Exynos 2400",
+      "price": 1050,
+      "company": "Samsung"
+    }
+  ]
+  
