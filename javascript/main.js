@@ -1,123 +1,36 @@
-// function sortKeys(obj){
-//     var keys = Object.keys(obj);
-//     keys.sort();
-//     return keys;
-// }
-// const obj = {
-//     b: 2,
-//     a: 1,
-//     c: 3
-// };
-// console.log(sortKeys(obj));
+document.addEventListener('DOMContentLoaded', function() {
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const inputText = document.getElementById('inputtext');
+    const checkboxInput = document.getElementById('checkbox');
+    const radioButtons = document.getElementsByName('radio');
+    const dropdown = document.getElementById('dropdown');
+    const cancelButton = document.querySelector('.cancel-button');
+    const nextButton = document.querySelector('.next-button');
+    const toggleSwitch = document.querySelector('.switch input');
 
-//                                                      2-SAVOL:
-// function uniqueConcat(arr) {
-//     let result = [];
-//     for (let i = 0; i < arr.length; i++) {
-//         if (result.indexOf(arr[i]) === -1) {
-//             result.push(arr[i]);
-//         }
-//     }
-//     return result.toString().join(");
-// }
-// console.log(uniqueConcat(['a', 'b', 'c', 'a', 'b', 'd']));
+    nextButton.addEventListener('click', function(event) {
+        event.preventDefault();
 
-//                                                      3-SAVOL:
-// function findDuplicates(arr) {
-//     let duplicates = [];
-//     for (let i = 0; i < arr.length; i++) {
-//         for (let j = i + 1; j < arr.length; j++) {
-//             if (arr[i] === arr[j] && duplicates.indexOf(arr[i]) === -1) {
-//                 duplicates.push(arr[i]);
-//             }
-//         }
-//     }
-//     return duplicates;
-// }
-// console.log(findDuplicates([1, 2, 3, 1, 2, 4])); 
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const inputTextValue = inputText.value;
+        const isChecked = checkboxInput.checked;
+        const selectedRadio = [...radioButtons].find(radio => radio.checked).value;
+        const dropdownValue = dropdown.value;
+        const toggleStatus = toggleSwitch.checked ? 'On' : 'Off';
 
-//                                                      4-SAVOL:
-// function sumObjectValues(obj) {
-//     let sum = 0;
-//     for (let key in obj) {
-//         if (typeof obj[key] === 'number') {
-//             sum += obj[key];
-//         } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-//             sum += sumObjectValues(obj[key]);
-//         }
-//     }
-//     return sum;
-// }
-// const obj = {
-//     a: 1,
-//     b: {
-//         c: 2,
-//         d: {
-//             e: 3
-//         }
-//     }
-// };
-// console.log(sumObjectValues(obj));
+        console.log(`Username: ${username}`);
+        console.log(`Password: ${password}`);
+        console.log(`Input Text: ${inputTextValue}`);
+        console.log(`Remember Me: ${isChecked}`);
+        console.log(`Selected Radio: ${selectedRadio}`);
+        console.log(`Dropdown Value: ${dropdownValue}`);
+        console.log(`Toggle Status: ${toggleStatus}`);
+    });
 
-//                                                      5-SAVOL:
-// function rotateArrayLeft(arr, n) {
-//     const rotations = n % arr.length;
-//     return [...arr.slice(rotations), ...arr.slice(0, rotations)];
-// }
-// console.log(rotateArrayLeft([1, 2, 3, 4, 5], 2));
-
-//                                                      6-SAVOL:
-// function removeDigits(str) {
-//     return str.replace(/\d/g, '');
-// }
-// console.log(removeDigits("abc123def456"));
-
-//                                                      7-SAVOL:
-// function oddIndexedElements(arr) {
-//     return arr.filter((_, index) => index % 2 !== 0);
-// }
-// console.log(oddIndexedElements([1, 2, 3, 4, 5, 6]));
-
-//                                                      8-SAVOL:
-// function doubleValues(obj) {
-//     for (let key in obj) {
-//         if (typeof obj[key] === 'number') {
-//             obj[key] *= 2;
-//         } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-//             doubleValues(obj[key]);
-//         }
-//     }
-//     return obj;
-// }
-// const obj = {
-//     a: 1,
-//     b: {
-//         c: 2,
-//         d: {
-//             e: 3
-//         }
-//     }
-// };
-// console.log(doubleValues(obj));
-
-//                                                      9-SAVOL:
-// function objectToArray(obj) {
-//     return Object.entries(obj);
-// }
-// const obj = {
-//     a: 1,
-//     b: 2,
-//     c: 3
-// };
-// console.log(objectToArray(obj));
-
-//                                                      10-SAVOL:
-// function sortKeysByValue(obj) {
-//     return Object.keys(obj).sort((a, b) => obj[a] - obj[b]);
-// }
-// const obj = {
-//     a: 3,
-//     b: 1,
-//     c: 2
-// };
-// console.log(sortKeysByValue(obj));
+    cancelButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('Form cancelled');
+    });
+});
