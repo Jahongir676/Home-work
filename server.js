@@ -1,15 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const usersRouter = require('./routes/users.router');
-
+const userRoutes = require('./routes/user.router');
+const blogRoutes = require('./routes/user.blog.router');
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use('/users', usersRouter);
+app.use('/users', userRoutes);
+app.use('/blogs', blogRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
