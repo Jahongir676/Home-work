@@ -1,0 +1,81 @@
+# Contrains in PostgreSQL
+
+# Constraints in PostgreSQL
+
+Constraints are rules applied to columns or tables in a database to ensure data integrity. PostgreSQL supports several types of constraints. Here are some examples:
+
+## 1. NOT NULL Constraint
+
+Ensures that a column cannot have NULL values.
+
+```sql
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+```
+
+## 2. UNIQUE Constraint
+
+Ensures that all values in a column are different.
+
+```sql
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    product_code VARCHAR(50) UNIQUE,
+    name VARCHAR(100)
+);
+```
+
+## 3. PRIMARY KEY Constraint
+
+Uniquely identifies each record in a table.
+
+```sql
+CREATE TABLE customers (
+    customer_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
+);
+```
+
+## 4. FOREIGN KEY Constraint
+
+Ensures referential integrity between two tables.
+
+```sql
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INTEGER,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+```
+
+## 5. CHECK Constraint
+
+Ensures that values in a column satisfy a specific condition.
+
+```sql
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    price NUMERIC CHECK (price > 0)
+);
+```
+
+## 6. EXCLUSION Constraint
+
+Ensures that if any two rows are compared on the specified columns or expressions using the specified operators, at least one of these operator comparisons must return false or null.
+
+```sql
+CREATE TABLE reservations (
+    room_id INT,
+    start_date DATE,
+    end_date DATE,
+    EXCLUDE USING gist (room_id WITH =, daterange(start_date, end_date) WITH &&)
+);
+```
+
+These constraints help maintain data consistency and integrity in your PostgreSQL database. They prevent invalid data from being inserted and ensure that relationships between tables are maintained correctly.
