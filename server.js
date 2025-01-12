@@ -1,19 +1,18 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import { authRoutes, bookRoutes } from './routes/index.js';
-import setupDatabase from './setupDatabase.js';
-
-dotenv.config();
-
+import {userRouter, productRouter, comentsRouter, adminRouter, ordersRouter} from './routes/index.js'
+import runMigrations from './migrations.js';
 const app = express();
+const port = 3000;
+
 app.use(express.json());
+runMigrations();
 
-setupDatabase();
+app.use('/products',productRouter);
+app.use('/comments',comentsRouter);
+app.use('/admin',adminRouter);
+app.use('/orders',ordersRouter);
+app.use('/users',userRouter);
 
-app.use('/api/auth', authRoutes);
-app.use('/api', bookRoutes);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
