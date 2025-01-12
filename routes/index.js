@@ -1,4 +1,5 @@
-import * as authRoutes from './auth.router.js';
-import * as bookRoutes from './book.router.js';
-
-export { authRoutes, bookRoutes };
+export * from './products.router.js';
+export * from './user.router.js';
+export * from './coments.router.js';
+export * from './orders.router.js';
+export * from './admin.router.js';
