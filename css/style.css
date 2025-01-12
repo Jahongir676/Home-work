@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #E4DEFE;
+}
+.container{
+    background-color: #ffffff;
+    height: 1200px;
+    width: 700px;
+    margin: 50px auto;
+}
+.childdiv{
+    width: 564px;
+    height: 1012px;
+    margin: 50px auto;
+    background-color: transparent;
+}
+.labels{
+    font-size: 12px;
+    margin: 2px;
+}
+.childdiv input{
+    width: 100%;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 8px;
+}
+.childdivs{
+    padding-top: 16px;
+}
+.childdiv label{
+    float: left;
+    margin: 5px 0px;
+}
+.checkbox input{
+    float: left;
+    margin: 4px 0 0;
+    line-height: normal;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+  
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 320px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-size: 14px;
+}
+
+.radio-group label {
+  display: block;
+  margin: 10px 0;
+}
+
+.radio-group input {
+  padding-top: 16px;
+  margin-right: 10px;
+}
+
+.dropdown-container {
+  margin: 20px 0;
+}
+
+.dropdown-container select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.dropdown-container option:hover{
+    background-color: #7a52e0;
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cancel-button, .next-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: #5a5a5a;
+  border-color: #c3c3c3;
+  transition: 0.3s;
+}
+
+.next-button {
+  background-color: #7a52e0;
+  color: white;
+  transition: 0.3s;
+}
+
+.cancel-button:hover {
+  border-color: #7a52e0;
+  color: #7a52e0;
+}
+
+.next-button:hover {
+  background-color: #5a3ec2;
+}
