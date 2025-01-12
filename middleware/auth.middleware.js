@@ -1,16 +1,18 @@
-const fs = require('fs');
-
-const readData = (file) => JSON.parse(fs.readFileSync(file));
-
-const authenticateUser = (req, res, next) => {
-  const { username, password } = req.body;
-  let users = readData('database/users.json');
-
-  const user = users.find(u => (u.username === username || u.email === username) && u.password === password);
-  if (!user) return res.status(401).send('Invalid credentials');
+export const registerMiddleware = (req, res, next) => {
+    const { email, password } = req.body
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required!")
+    }
   
-  req.user = user;
-  next();
-};
-
-module.exports = { authenticateUser };
+    if (password.length <= 5) {
+      res.status(400).send("The passsword must be longer than 5 characters!")
+    }
+  
+    if (validateEmail(email)) {
+      res.status(400).send("Email is not valid!")
+    }
+  
+  
+  
+    next()
+  }
