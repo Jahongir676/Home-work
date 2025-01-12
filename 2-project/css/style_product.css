@@ -1,0 +1,22 @@
+*{
+    background-color: #252b42;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.container > table{
+    border: 2px solid white;
+    width: 100%;
+    height: 300px;
+}
+.tr{
+    color: white;
+    border: 2px solid white;
+}
