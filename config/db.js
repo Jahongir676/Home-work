@@ -1,11 +1,16 @@
-import pg from 'pg';
-const { Pool } = pg;
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    password: 'postgres',
-    database: 'nodejs_trello_service',
-    port: '5432'
-});
+import mongoose from 'mongoose';
 
-export default pool;
+const db = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB ulandi');
+  } catch (error) {
+    console.error('MongoDB ulanishda xatolik:', error);
+    process.exit(1);
+  }
+};
+
+export default db;
