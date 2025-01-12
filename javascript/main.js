@@ -1,152 +1,123 @@
-// async function getPlanetNames() {
-//   try {
-//     const response = await fetch('https://handlers.education.launchcode.org/static/planets.json');
-//     const planets = await response.json();
-//     return planets.map(planet => planet.name);
-//   } catch (error) {
-//     console.error('Error fetching planet names:', error);
-//     return [];
-//   }
+// function sortKeys(obj){
+//     var keys = Object.keys(obj);
+//     keys.sort();
+//     return keys;
 // }
-// getPlanetNames().then(planetNames => {
-//   const planetList = document.getElementById('planetList');
-//   planetNames.forEach(planetName => {
-//     const listItem = document.createElement('li');
-//     listItem.textContent = planetName;
-//     planetList.appendChild(listItem);
-//   });
-// });
+// const obj = {
+//     b: 2,
+//     a: 1,
+//     c: 3
+// };
+// console.log(sortKeys(obj));
 
 //                                                      2-SAVOL:
-// function findWhoLivedLongest(people) {
-//     let longestLived = people[0];
-//     let maxAge = 0;
-//     for (let person of people) {
-//         let age = person.deathYear - person.birthYear;
-//         if (age > maxAge) {
-//             maxAge = age;
-//             longestLived = person;
+// function uniqueConcat(arr) {
+//     let result = [];
+//     for (let i = 0; i < arr.length; i++) {
+//         if (result.indexOf(arr[i]) === -1) {
+//             result.push(arr[i]);
 //         }
 //     }
-//     return longestLived;
+//     return result.toString().join(");
 // }
-// const people = [
-//     { name: "Ali", birthYear: 1900, deathYear: 1980 },
-//     { name: "Vali", birthYear: 1920, deathYear: 1995 },
-//     { name: "Hasan", birthYear: 1915, deathYear: 2005 },
-//     { name: "Husan", birthYear: 1905, deathYear: 1960 }
-// ];
-// console.log(findWhoLivedLongest(people));
+// console.log(uniqueConcat(['a', 'b', 'c', 'a', 'b', 'd']));
 
 //                                                      3-SAVOL:
-// async function getUserInfoAndPosts(userId) {
-//   try {
-//     const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
-//     const userData = await userResponse.json();
-
-//     const postsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-//     const postsData = await postsResponse.json();
-
-//     const { name, address: { city }, company: { name: companyName } } = userData;
-//     const postTitles = postsData.map(post => post.title);
-
-//     console.log(`Author: ${name}`);
-//     console.log(`City: ${city}`);
-//     console.log(`Company: ${companyName}`);
-//     console.log('Post Titles:');
-//     postTitles.forEach((title, index) => {
-//       console.log(`${index + 1}. ${title}`);
-//     });
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
+// function findDuplicates(arr) {
+//     let duplicates = [];
+//     for (let i = 0; i < arr.length; i++) {
+//         for (let j = i + 1; j < arr.length; j++) {
+//             if (arr[i] === arr[j] && duplicates.indexOf(arr[i]) === -1) {
+//                 duplicates.push(arr[i]);
+//             }
+//         }
+//     }
+//     return duplicates;
 // }
-// getUserInfoAndPosts(1);
+// console.log(findDuplicates([1, 2, 3, 1, 2, 4])); 
 
-//                                                          4-SAVOL:
-// async function getJustTodos() {
-//   try {
-//     const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-//     const todos = await response.json();
-//     const justTodos = todos.filter(todo => todo.completed === false);
-//     console.log('Incomplete todos:');
-//     justTodos.forEach(todo => {
-//       console.log(`ID: ${todo.id}, Title: ${todo.title}`);
-//     });
-//     return justTodos;
-//   } catch (error) {
-//     console.error('Error fetching todos:', error);
-//   }
+//                                                      4-SAVOL:
+// function sumObjectValues(obj) {
+//     let sum = 0;
+//     for (let key in obj) {
+//         if (typeof obj[key] === 'number') {
+//             sum += obj[key];
+//         } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+//             sum += sumObjectValues(obj[key]);
+//         }
+//     }
+//     return sum;
 // }
-// getJustTodos();
-
-//                                                          5-SAVOL:
-// const product = {
-//   nomi: "Laptop",
-//   miqdori: 10,
-//   narxi: 1000,
-//   get productInfo() {
-//     return `Nomi: ${this.nomi}, Miqdori: ${this.miqdori}, Narxi: $${this.narxi}`;
-//   },
-//   set setPrice(newPrice) {
-//     this.narxi = newPrice;
-//   }
+// const obj = {
+//     a: 1,
+//     b: {
+//         c: 2,
+//         d: {
+//             e: 3
+//         }
+//     }
 // };
-// const tovar = Object.assign({}, product);
-// tovar.setPrice = 1200;
-// console.log("Product ma'lumoti:", product.productInfo);
-// console.log("Tovar ma'lumoti:", tovar.productInfo);
-// function FindAllMethods(obj) {
-//   return Object.getOwnPropertyNames(obj).filter(prop => typeof obj[prop] === 'function');
-// }
-// console.log("Product metodlari:", FindAllMethods(product));
-// function InvertKeyValue(obj) {
-//   return Object.fromEntries(Object.entries(obj).map(([key, value]) => [value, key]));
-// }
-// console.log(InvertKeyValue({red: "qizil", green: "yashil"}));
+// console.log(sumObjectValues(obj));
 
-//                                                           6-SAVOL:
-// function isAnagram(word1, word2) {
-//   const cleanWord1 = word1.toLowerCase().replace(/\s/g, '');
-//   const cleanWord2 = word2.toLowerCase().replace(/\s/g, '');
-//   if (cleanWord1.length !== cleanWord2.length) {
-//     return false;
-//   }
-//   const sortedWord1 = cleanWord1.split('').sort().join('');
-//   const sortedWord2 = cleanWord2.split('').sort().join('');
-//   return sortedWord1 === sortedWord2;
+//                                                      5-SAVOL:
+// function rotateArrayLeft(arr, n) {
+//     const rotations = n % arr.length;
+//     return [...arr.slice(rotations), ...arr.slice(0, rotations)];
 // }
-// console.log(isAnagram("tuk", "kut"));
+// console.log(rotateArrayLeft([1, 2, 3, 4, 5], 2));
 
-//                                                          7-SAVOL:
-// function odamSoni(bekatlar) {
-//   let odamlarSoni = 0;
-//   for (let bekat of bekatlar) {
-//     const [chiqqanlar, tushganlar] = bekat;
-//     odamlarSoni += chiqqanlar - tushganlar;
-//   }
-//   return odamlarSoni;
+//                                                      6-SAVOL:
+// function removeDigits(str) {
+//     return str.replace(/\d/g, '');
 // }
-// console.log(odamSoni([[10, 0], [3, 5], [5, 8]]));
-// console.log(odamSoni([[3, 0], [9, 1], [4, 8], [12, 2], [6, 1], [7, 8]]));
+// console.log(removeDigits("abc123def456"));
 
-//                                                          8-SAVOL:
-// async function getTopAuthors() {
-//   try {
-//     const response = await fetch('https://api.breakingbadquotes.xyz/v1/quotes/100');
-//     const quotes = await response.json();
-//     const authorCounts = quotes.reduce((acc, quote) => {
-//       acc[quote.author] = (acc[quote.author] || 0) + 1;
-//       return acc;
-//     }, {});
-//     const maxCount = Math.max(...Object.values(authorCounts));
-//     const topAuthors = Object.keys(authorCounts).filter(author => authorCounts[author] === maxCount);
-//     return topAuthors;
-//   } catch (error) {
-//     console.error('Xatolik yuz berdi:', error);
-//     return [];
-//   }
+//                                                      7-SAVOL:
+// function oddIndexedElements(arr) {
+//     return arr.filter((_, index) => index % 2 !== 0);
 // }
-// getTopAuthors().then(topAuthors => {
-//   console.log('Eng ko\'p iqtibos keltirilgan mualliflar:', topAuthors);
-// });
+// console.log(oddIndexedElements([1, 2, 3, 4, 5, 6]));
+
+//                                                      8-SAVOL:
+// function doubleValues(obj) {
+//     for (let key in obj) {
+//         if (typeof obj[key] === 'number') {
+//             obj[key] *= 2;
+//         } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+//             doubleValues(obj[key]);
+//         }
+//     }
+//     return obj;
+// }
+// const obj = {
+//     a: 1,
+//     b: {
+//         c: 2,
+//         d: {
+//             e: 3
+//         }
+//     }
+// };
+// console.log(doubleValues(obj));
+
+//                                                      9-SAVOL:
+// function objectToArray(obj) {
+//     return Object.entries(obj);
+// }
+// const obj = {
+//     a: 1,
+//     b: 2,
+//     c: 3
+// };
+// console.log(objectToArray(obj));
+
+//                                                      10-SAVOL:
+// function sortKeysByValue(obj) {
+//     return Object.keys(obj).sort((a, b) => obj[a] - obj[b]);
+// }
+// const obj = {
+//     a: 3,
+//     b: 1,
+//     c: 2
+// };
+// console.log(sortKeysByValue(obj));
