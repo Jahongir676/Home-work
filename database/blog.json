@@ -1,0 +1,71 @@
+[
+    {
+      "id": 1,
+      "title": "My First Blog Post",
+      "slug": "my-first-blog-post",
+      "content": "This is my very first blog post!",
+      "tags": ["intro", "first"],
+      "comments": [
+        {
+          "user_id": 2,
+          "comment": "Great start, John!"
+        },
+        {
+          "user_id": 3,
+          "comment": "Looking forward to more posts!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Top 10 Travel Destinations",
+      "slug": "top-10-travel-destinations",
+      "content": "Here are my top 10 travel destinations for 2024.",
+      "tags": ["travel", "destinations"],
+      "comments": [
+        {
+          "user_id": 1,
+          "comment": "I totally agree with this list!"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Web Development Tips",
+      "slug": "web-development-tips",
+      "content": "Here are some web development tips for beginners.",
+      "tags": ["development", "web"],
+      "comments": [
+        {
+          "user_id": 4,
+          "comment": "These tips are really helpful!"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Healthy Living Guide",
+      "slug": "healthy-living-guide",
+      "content": "A comprehensive guide to healthy living.",
+      "tags": ["health", "wellness"],
+      "comments": [
+        {
+          "user_id": 3,
+          "comment": "Thanks for sharing this guide!"
+        },
+        {
+          "user_id": 5,
+          "comment": "Very informative post!"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Best Movies of the Year",
+      "slug": "best-movies-2024",
+      "content": "Here is my list of the best movies of the year 2024.",
+      "tags": ["movies", "reviews"],
+      "comments": []
+    }
+  ]
+  
