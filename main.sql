@@ -1,85 +1,70 @@
-CREATE TABLE Users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT UNIQUE,
-    password TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE Mualliflar (
+    id SERIAL PRIMARY KEY,
+    ism VARCHAR(255),
+    tugilgan_yili DATE
 );
 
-CREATE TABLE Posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER REFERENCES Users(id),
-    title TEXT,
-    content TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE Kitoblar (
+    id SERIAL PRIMARY KEY,
+    nomi VARCHAR(255),
+    muallif_id INTEGER REFERENCES Mualliflar(id) ON DELETE CASCADE,
+    narxi DECIMAL(10, 2),
+    sahifa_soni INTEGER
 );
 
-CREATE TABLE Comments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    post_id INTEGER REFERENCES Posts(id),
-    user_id INTEGER REFERENCES Users(id),
-    content TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE KitobSotuvlari (
+    id SERIAL PRIMARY KEY,
+    kitob_id INTEGER REFERENCES Kitoblar(id) ON DELETE CASCADE,
+    sana DATE,
+    sotilgan_soni INTEGER
 );
 
-CREATE TABLE Categories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE
+CREATE TABLE KitobSharhlari (
+    id SERIAL PRIMARY KEY,
+    kitob_id INTEGER REFERENCES Kitoblar(id) ON DELETE CASCADE,
+    mijoz_id INTEGER,
+    matn TEXT,
+    baho INTEGER
 );
 
-CREATE TABLE Post_Category (
-    post_id INTEGER REFERENCES Posts(id),
-    category_id INTEGER REFERENCES Categories(id),
-    PRIMARY KEY (post_id, category_id)
-);
+INSERT INTO Mualliflar (ism, tugilgan_yili) VALUES
+('J.K. Rowling', '1965-07-31'),
+('George R.R. Martin', '1948-09-20');
 
-CREATE TABLE Likes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER REFERENCES Users(id),
-    post_id INTEGER REFERENCES Posts(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+INSERT INTO Kitoblar (nomi, muallif_id, narxi, sahifa_soni) VALUES
+('Harry Potter', 1, 19.99, 500),
+('Game of Thrones', 2, 24.99, 800);
 
+INSERT INTO KitobSotuvlari (kitob_id, sana, sotilgan_soni) VALUES
+(1, '2024-01-10', 150),
+(2, '2024-02-12', 200);
 
+INSERT INTO KitobSharhlari (kitob_id, mijoz_id, matn, baho) VALUES
+(1, 101, 'Juda ajoyib kitob!', 5),
+(2, 102, 'Yaxshi, lekin uzoq', 4);
 
-INSERT INTO Users (name, email, password) VALUES
-('John Doe', 'john@example.com', 'password123'),
-('Jane Smith', 'jane@example.com', 'password456'),
-('Alice Johnson', 'alice@example.com', 'password789'),
-('Bob Williams', 'bob@example.com', 'password111'),
-('Charlie Brown', 'charlie@example.com', 'password222');
+SELECT Mualliflar.ism, SUM(KitobSotuvlari.sotilgan_soni) AS umumiy_sotuvlar, 
+SUM(KitobSotuvlari.sotilgan_soni * Kitoblar.narxi) AS umumiy_daromad
+FROM KitobSotuvlari
+JOIN Kitoblar ON KitobSotuvlari.kitob_id = Kitoblar.id
+JOIN Mualliflar ON Kitoblar.muallif_id = Mualliflar.id
+GROUP BY Mualliflar.ism;
 
-INSERT INTO Categories (name) VALUES
-('Technology'),
-('Science'),
-('Health'),
-('Travel'),
-('Lifestyle');
+SELECT Kitoblar.nomi, AVG(KitobSharhlari.baho) AS ortacha_baho
+FROM KitobSharhlari
+JOIN Kitoblar ON KitobSharhlari.kitob_id = Kitoblar.id
+GROUP BY Kitoblar.nomi
+ORDER BY ortacha_baho DESC
+LIMIT 5;
 
-INSERT INTO Posts (user_id, title, content) VALUES
-(1, 'Introduction to SQL', 'This is a post about SQL basics.'),
-(2, 'The Future of Technology', 'Exploring the latest trends in tech.'),
-(3, 'Healthy Eating Habits', 'A guide to eating healthy and balanced meals.'),
-(4, 'Top Travel Destinations', 'The best places to visit this year.'),
-(5, 'Lifestyle Tips for 2024', 'How to improve your lifestyle this year.');
+SELECT Mualliflar.ism, MAX(Kitoblar.narxi) AS eng_qimmat, MIN(Kitoblar.narxi) AS eng_arzon
+FROM Kitoblar
+JOIN Mualliflar ON Kitoblar.muallif_id = Mualliflar.id
+GROUP BY Mualliflar.ism;
 
-INSERT INTO Comments (post_id, user_id, content) VALUES
-(1, 2, 'Great introduction to SQL!'),
-(1, 3, 'Very informative. Thanks!'),
-(2, 1, 'Exciting future ahead in technology!'),
-(3, 4, 'I love these healthy tips!'),
-(4, 5, 'Looking forward to my next vacation.');
-
-INSERT INTO Post_Category (post_id, category_id) VALUES
-(1, 1),
-(2, 1),
-(3, 3),
-(4, 4),
-(5, 5);
-
-INSERT INTO Likes (user_id, post_id) VALUES
-(1, 2),
-(2, 1),
-(3, 3),
-(4, 4),
-(5, 5);
+SELECT Kitoblar.nomi, SUM(KitobSotuvlari.sotilgan_soni) AS jami_sotilgan
+FROM KitobSotuvlari
+JOIN Kitoblar ON KitobSotuvlari.kitob_id = Kitoblar.id
+GROUP BY Kitoblar.nomi
+ORDER BY jami_sotilgan DESC
+LIMIT 5;
