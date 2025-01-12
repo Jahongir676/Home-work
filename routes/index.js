@@ -1,3 +1,4 @@
-export * from "./auth.routes.js"
-export * from "./profile.routes.js"
-export * from "./debt.routes.js"
+import * as authRoutes from './auth.router.js';
+import * as bookRoutes from './book.router.js';
+
+export { authRoutes, bookRoutes };

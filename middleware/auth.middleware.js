@@ -1,18 +1,13 @@
-export const registerMiddleware = (req, res, next) => {
-    const { email, password } = req.body
-    if (!email || !password) {
-      return res.status(400).send("Email and password are required!")
-    }
-  
-    if (password.length <= 5) {
-      res.status(400).send("The passsword must be longer than 5 characters!")
-    }
-  
-    if (validateEmail(email)) {
-      res.status(400).send("Email is not valid!")
-    }
-  
-  
-  
-    next()
-  }
+import jwt from 'jsonwebtoken';
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(403).json({ error: 'No token provided' });
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(500).json({ error: 'Failed to authenticate token' });
+    req.userId = decoded.userId;
+    next();
+  });
+};
+
+export default verifyToken();
