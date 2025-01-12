@@ -1,18 +1,24 @@
 import express from 'express';
-import {userRouter, productRouter, comentsRouter, adminRouter, ordersRouter} from './routes/index.js'
-import runMigrations from './migrations.js';
+import authsRouter from './routers/main.router.js';
+import usersRouter from './routers/main.router.js';
+import boardsRouter from './routers/main.router.js';
+import tasksRouter from './routers/main.router.js';
+import createTables  from './setup.tables.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const PORT = process.env.PORT || 4000;
+
+
 const app = express();
-const port = 3000;
-
 app.use(express.json());
-runMigrations();
 
-app.use('/products',productRouter);
-app.use('/comments',comentsRouter);
-app.use('/admin',adminRouter);
-app.use('/orders',ordersRouter);
-app.use('/users',userRouter);
+app.use("./api/auth", authsRouter);
+app.use("./api/users", usersRouter);
+app.use(".api/boards", boardsRouter);
+app.use("./api/boards/:boardId/tasks", tasksRouter);
+app.post(".api/setUp", createTables);
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+app.listen(PORT, () =>{
+    console.log(`Server is running on port ${PORT}`);
 });
