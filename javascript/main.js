@@ -1,219 +1,215 @@
-// const ToDoList = {
+// class BookList {
+//     constructor() {
+//         this.books = [];
+//         this.favoriteBook = '';
+//     }
+//     addBook(title, author) {
+//         this.books.push({ title, author });
+//     }
+//     setFavoriteBook(title) {
+//         this.favoriteBook = title;
+//     }
+//     getBooksList() {
+//         this.books.forEach(book => {
+//             console.log(`Kitob nomi: ${book.title}, muallif: ${book.author}`);
+//         });
+//     }
+
+//     getFavoriteBook() {
+//         console.log(this.favoriteBook);
+//     }
+// }
+// const bookList = new BookList([{name: 'Seas', author: "Jony"}]);
+
+//                              2-SAVOL:
+// function paskalUchburchagi(n) {
+//     for (let i = 0; i < n; i++) {
+//         let qator = [];
+//         for (let j = 0; j <= i; j++) {
+//             if (j === 0 || j === i) {
+//                 qator.push(1);
+//             } else {
+//                 qator.push(oldingiqator[j-1] + oldingiqator[j]);
+//             }
+//         }
+//         console.log(qator.join(' '));
+//         oldingiqator = qator;
+//     }
+// }
+// paskalUchburchagi(5);
+
+//                              3-SAVOL:
+// class Magic {
+//     replace(str, oldValue, newValue) {
+//         return str.split(oldValue).join(newValue);
+//     }
+//     length(data) {
+//         return String(data).length;
+//     }
+//     toUpperCase(str) {
+//         const upperCaseMap = {
+//             'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F', 'g': 'G', 'h': 'H',
+//             'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N', 'o': 'O', 'p': 'P',
+//             'q': 'Q', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U', 'v': 'V', 'w': 'W', 'x': 'X',
+//             'y': 'Y', 'z': 'Z'
+//         };
+//         return str.split('').map(char => upperCaseMap[char] || char).join('');
+//     }
+//     repeat(data, n) {
+//         return Array(n).fill(data).join(' ');
+//     }
+//     count(str) {
+//         const result = {};
+//         for (let char of str) {
+//             result[char] = (result[char] || 0) + 1;
+//         }
+//         return result;
+//     }
+// }
+// const magic = new Magic();
+
+//                              4-SAVOL:
+// class BankAccount {
+//     constructor(ownerName, accountNumber, balance = 0) {
+//         this.ownerName = ownerName;
+//         this.accountNumber = accountNumber;
+//         this.balance = balance;
+//     }
+//     deposit(amount) {
+//         if (amount > 0) {
+//             this.balance += amount;
+//             console.log(`${amount} so'm mablag' qo'shildi. Yangi balans: ${this.balance} so'm`);
+//         } else {
+//             console.log("Noto'g'ri summa kiritildi.");
+//         }
+//     }
+//     withdraw(amount) {
+//         if (amount > 0 && amount <= this.balance) {
+//             this.balance -= amount;
+//             console.log(`${amount} so'm mablag' yechildi. Yangi balans: ${this.balance} so'm`);
+//         } else if (amount > this.balance) {
+//             console.log("Hisobingizda yetarli mablag' mavjud emas.");
+//         } else {
+//             console.log("Noto'g'ri summa kiritildi.");
+//         }
+//     }
+//     showBalance() {
+//         console.log(`${this.ownerName}ning joriy balansi: ${this.balance} so'm`);
+//     }
+// }
+// const user1 = new BankAccount("Alisher Zokirov", "1234567890");
+// const user2 = new BankAccount("Malika Karimova", "0987654321");
+// console.log("User1 amallari:");
+// user1.showBalance();
+// user1.deposit(100000);
+// user1.withdraw(30000);
+// user1.showBalance();
+// console.log("\nUser2 amallari:");
+// user2.showBalance();
+// user2.deposit(500000);
+// user2.withdraw(200000);
+// user2.showBalance();
+// console.log("\nXato holatlarni tekshirish:");
+// user1.deposit(-10000);
+// user1.withdraw(1000000);
+
+//                              5-SAVOL:
+// class Circle {
+//     constructor(radius) {
+//         this.radius = radius;
+//     }
+//     getArea() {
+//         return Math.PI * Math.pow(this.radius, 2);
+//     }
+//     getPerimeter() {
+//         return 2 * Math.PI * this.radius;
+//     }
+// }
+// const circle1 = new Circle(5);
+// console.log("Circle 1:");
+// console.log("Radius:", circle1.radius);
+// console.log("Area:", circle1.getArea());
+// console.log("Perimeter:", circle1.getPerimeter());
+
+//                              6-SAVOL:
+// function squareNumber(n) {
+//     return parseInt(n.toString().split('').map(digit => Math.pow(parseInt(digit), 2)).join(''));
+// }
+// console.log(squareNumber(3221));
+
+//                              7-SAVOL:
+// class Box {
+//     constructor(length, width, height) {
+//         this.length = length;
+//         this.width = width;
+//         this.height = height;
+//     }
+
+//     getVolume() {
+//         return this.length * this.width * this.height;
+//     }
+// }
+// function totalVolume(...boxes) {
+//     return boxes.reduce((total, box) => total + box.getVolume(), 0);
+// }
+// const box1 = new Box(2, 3, 4);
+// const box2 = new Box(1, 2, 3);
+// const box3 = new Box(5, 5, 5);
+// console.log("Box 1 hajmi:", box1.getVolume());
+// console.log("Box 2 hajmi:", box2.getVolume());
+// console.log("Box 3 hajmi:", box3.getVolume());
+// console.log("Umumiy hajm:", totalVolume(box1, box2, box3));
+
+//                                  8-SAVOL:
+// Object yordamida Todo List
+// const todoList = {
 //     tasks: [],
-    
 //     addTask(task) {
 //         this.tasks.push(task);
 //     },
-    
 //     removeTask(index) {
 //         if (index >= 0 && index < this.tasks.length) {
 //             this.tasks.splice(index, 1);
 //         }
 //     },
-    
-//     printTasks() {
+//     displayTasks() {
+//         console.log("Todo List:");
 //         this.tasks.forEach((task, index) => {
 //             console.log(`${index + 1}. ${task}`);
 //         });
 //     }
 // };
 
-// let bool = true;
-// let choose;
-// while(bool){
-//     choose = prompt("1. Add task\n2. Remove task\n3. Print tasks\n4. Exit");
-//     switch(choose){
-//         case "1":
-//             task = prompt("Enter task");
-//             ToDoList.addTask(task);
-//             break;
-//         case "2":
-//             index = prompt("Enter index");
-//             ToDoList.removeTask(index);
-//             break;
-//         case "3":
-//             console.log("Tasks:");
-//             ToDoList.printTasks();
-//             break;
-//         case "4":
-//             bool = false;
-//             break;
-//         default:
-//             alert("Invalid choice");
-//             choose = prompt("choice one of them:1. Add task\n2. Remove task\n3. Print tasks\n4. Exit");
-//             break;
-//     }
-// }
+// todoList.addTask('Breakfast at 8:00 AM');
+// todoList.addTask('Meeting at 12:00 PM');
+// todoList.displayTasks();
+// todoList.removeTask(0);
+// todoList.displayTasks();
 
-//                              2-SAVOL:
-// let Expenses = {
-//     water: 0,
-//     gas: 0,
-//     electricity: 0,
-    
-//     addExpense: function(type, amount) {
-//         if (this.hasOwnProperty(type)) {
-//             this[type] += amount;
-//         } else {
-//             console.log("Noto'g'ri xarajat turi");
-//         }
-//     },
-    
-//     removeExpense: function(type, amount) {
-//         if (this.hasOwnProperty(type)) {
-//             if (this[type] >= amount) {
-//                 this[type] -= amount;
-//             } else {
-//                 console.log("Olib tashlanadigan summa mavjud summadan ko'p");
-//             }
-//         } else {
-//             console.log("Noto'g'ri xarajat turi");
-//         }
-//     },
-    
-//     printMonthlyReport: function() {
-//         console.log(`Suv uchun oylik xarajat: ${this.water}`);
-//         console.log(`Gaz uchun oylik xarajat: ${this.gas}`);
-//         console.log(`Elektr energiyasi uchun oylik xarajat: ${this.electricity}`);
+//                                  9-SAVOL:
+// class TodoList {
+//     constructor() {
+//         this.tasks = [];
 //     }
-// };
-
-// let bool = true;
-// while(bool){
-//     let choose = prompt("1. Add expense\n2. Remove expense\n3. Print monthly report\n4. Exit");
-//     switch(choose){
-//         case "1":
-//             type = prompt("Enter expense type (water, gas, electricity)");
-//             amount = prompt("Enter expense amount");
-//             Expenses.addExpense(type, amount);
-//             break;
-//         case "2":
-//             type = prompt("Enter expense type (water, gas, electricity)");
-//             amount = prompt("Enter expense amount");
-//             Expenses.removeExpense(type, amount);
-//             break;
-//         case "3":
-//             Expenses.printMonthlyReport();
-//             break;
-//         case "4":
-//             bool = false;
-//             break;
-//         default:
-//             alert("Invalid choice");
-//             choose = prompt("choice one of them:1. Add expense\n2. Remove expense\n3. Print monthly report\n4. Exit");
-//             break;
+//     addTask(task) {
+//         this.tasks.push(task);
 //     }
-// }
-
-//                              3-SAVOL:
-// function countAll(str) {
-//     let result = { "HARFLAR": 0, "RAQAMLAR": 0 };
-    
-//     for (let char of str) {
-//         if (/[a-zA-Z]/.test(char)) {
-//             result.HARFLAR++;
-//         } else if (/[0-9]/.test(char)) {
-//             result.RAQAMLAR++;
+//     removeTask(index) {
+//         if (index >= 0 && index < this.tasks.length) {
+//             this.tasks.splice(index, 1);
 //         }
 //     }
-    
-//     return result;
+//     displayTasks() {
+//         console.log("Todo List:");
+//         this.tasks.forEach((task, index) => {
+//             console.log(`${index + 1}. ${task}`);
+//         });
+//     }
 // }
-// console.log(countAll("Hello World"));     
-// console.log(countAll("149990"));
+// const myTodoList = new TodoList();
+// myTodoList.addTask('Breakfast at 8:00 AM');
+// myTodoList.addTask('Meeting at 12:00 PM');
+// myTodoList.displayTasks();
+// myTodoList.removeTask(0);
+// myTodoList.displayTasks();
 
-//                              4-SAVOL:
-// function checkout(items) {
-//     const TAX_RATE = 0.06;
-//     let total = 0;
-
-//     for (let item of items) {
-//         let itemTotal = item.prc * item.qty;
-//         if (item.taxable) {
-//             itemTotal += itemTotal * TAX_RATE;
-//         }
-//         total += itemTotal;
-//     }
-
-//     return Number(total.toFixed(2));
-// }
-// console.log(checkout([
-//     { desc: "kartoshka chiplari", prc: 2, qty: 2, taxable: false },
-//     { desc: "gazlangan suv", prc: 3, qty: 2, taxable: false },
-//     { desc: "qog'oz idishlar", prc: 5, qty: 1, taxable: true }
-// ]));
-
-//                              5-SAVOL:
-// function numInStr(arr) {
-//     return arr.filter(str => /\d/.test(str));
-// }
-// console.log(numInStr(["1a", "a", "2b", "b"]));
-
-//                              6-SAVOL:
-// let bool = true;
-// while(bool){
-//     let choose = prompt("1. Create student\n2. Read student\n3. Update student\n4. Delete student\n5. Exit");
-//     switch(choose){
-//         case "1":
-//             name = prompt("Enter student name");
-//             data = {
-//                 age: prompt("Enter student age"),
-//                 grade: prompt("Enter student grade")
-//             };
-//             console.log(createStudent(name, data));
-//             break;
-//         case "2":
-//             name = prompt("Enter student name");
-//             console.log(readStudent(name));
-//             break;
-//         case "3":
-//             name = prompt("Enter student name");
-//             data = {
-//                 age: prompt("Enter student age"),
-//                 grade: prompt("Enter student grade")
-//             };
-//             console.log(updateStudent(name, data));
-//             break;
-//         case "4":
-//             name = prompt("Enter student name");
-//             console.log(deleteStudent(name));
-//             break;
-//         case "5":
-//             bool = false;
-//             break;
-//         default:
-//             alert("Invalid choice");
-//             choose = prompt("choice one of them:1. Create student\n2. Read student\n3. Update student\n4. Delete student\n5. Exit");
-//             break;
-//     }
-// }
-// let studentsList = new Map();
-// function createStudent(name, data) {
-//     if (studentsList.has(name)) {
-//         return "Xatolik: Bu nom bilan foydalanuvchi allaqachon mavjud";
-//     }
-//     studentsList.set(name, data);
-//     return studentsList;
-// }
-// function readStudent(name) {
-//     if (studentsList.has(name)) {
-//         return studentsList.get(name);
-//     }
-//     return "Foydalanuvchi topilmadi";
-// }
-// function updateStudent(name, newData) {
-//     if (studentsList.has(name)) {
-//         let currentData = studentsList.get(name);
-//         let updatedData = { ...currentData, ...newData };
-//         studentsList.set(name, updatedData);
-//         return updatedData;
-//     }
-//     return "Xatolik: Foydalanuvchi topilmadi";
-// }
-// function deleteStudent(name) {
-//     if (studentsList.has(name)) {
-//         studentsList.delete(name);
-//         return "Foydalanuvchi o'chirildi";
-//     }
-//     return "Foydalanuvchi topilmadi";
-// }
