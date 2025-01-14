@@ -1,50 +1,64 @@
-import CourseModule from '../models/course.model.js';
+import { 
+    createCourseService, getAllCoursesService, 
+    updateCourseService, deleteCourseService
+} from "../service/index.js";
+import { logger } from "../utils/index.js";
 
-export const createCourse = async (req, res) => {
-  try {
-    const course = new CourseModule(req.body);
-    await course.save();
-    res.status(201).json(course);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
-export const getAllCourses = async (req, res) => {
-  try {
-    const courses = await CourseModule.find();
-    res.status(200).json(courses);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const createCourseController = async (req, res, next) => {
+    try {
+        let data = req.body
+        const result = await createCourseService(data)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const getCourseById = async (req, res) => {
-  try {
-    const course = await CourseModule.findById(req.params.id);
-    if (!course) return res.status(404).json({ message: 'Course not found' });
-    res.status(200).json(course);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const getAllCoursesController = async (req, res, next) => {
+    try {
+        const page = req.query.page || 1
+        const limit = req.query.limit || 5
+        const result = await getAllCoursesService(page, limit)
+        if(!result.success){
+            return res.status(result.status).send(result.message)
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const updateCourse = async (req, res) => {
-  try {
-    const course = await CourseModule.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!course) return res.status(404).json({ message: 'Course not found' });
-    res.status(200).json(course);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const updateCourseController = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const newCourse = req.body
+        const result = await updateCourseService(id, newCourse)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const deleteCourse = async (req, res) => {
-  try {
-    const course = await CourseModule.findByIdAndDelete(req.params.id);
-    if (!course) return res.status(404).json({ message: 'Course not found' });
-    res.status(200).json({ message: 'Course deleted successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const deleteCourseController = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const result = await deleteCourseService(id)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}

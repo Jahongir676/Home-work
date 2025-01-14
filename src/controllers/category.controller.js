@@ -1,60 +1,60 @@
-import { Category } from "../modules/index.js"
-import { statusCodes, errorMessages, ApiError } from "../utils/index.js"
+import { createCategoryService, getAllCategoriesService, updateCategoryService, deleteCategoryService } from "../service/index.js"
+import { logger } from "../utils/index.js"
 
 
 export const createCategoryController = async (req, res, next) => {
     try {
-        const data = req.body
-        const newCategory = new Category(data)
-        const result = await newCategory.save()
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
+        const result = await createCategoryService(req.body)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
         }
+        return res.status(result.status).send(result.message)
     } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
+        logger.error(error)
+        next(error)
     }
 }
 
-export const getAllCategories = async (req, res, next) => {
+export const getAllCategoriesController = async (req, res, next) => {
     try {
-        const categories = await Category.find()
-        if(!categories){
-            return res.status(statusCodes.NOT_FOUND).send('Category Not Found')
+        const page = req.query.page || 5
+        const limit = req.query.limit || 5
+        const result = await getAllCategoriesService(page, limit)
+        if(!result.success){
+            return res.status(result.status).send(result.message)
         }
-        return res.status(statusCodes.OK).send(categories)
+        return res.status(result.status).send(result.message)
     } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
+        logger.error(error)
+        next(error)
     }
 }
 
-export const updateCategory = async (req, res, next) => {
-    try {
-        const id = req.params.id
-        const newCategfory = req.body
-        const result = await Category.findByIdAndUpdate(id, newCategfory)
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
-        }
-    } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
-    }
-}
-
-export const deleteCategory = async (req, res, next) => {
+export const updateCategoryController = async (req, res, next) => {
     try {
         const id = req.params.id
-        const newCategfory = req.body
-        const result = await Category.findByIdAndUpdate(id, newCategfory)
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
+        const newCategory = req.body
+        const result = await updateCategoryService(id, newCategory)
+        if(!result.success){
+            return res.send("Nimadur hato ketdi")
         }
+        return res.status(result.status).send(result.message)
     } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
+        logger.error(error)
+        next(error)
+    }
+}
+
+export const deleteCategoryController = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const result = await deleteCategoryService(id)
+        if(!result.success){
+            return res.send("Nimadur hato ketdi")
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
     }
 }

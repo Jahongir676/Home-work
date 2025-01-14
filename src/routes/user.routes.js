@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { authGuard } from "../middleware/index.js";
-import { userProfileController } from "../controllers/index.js";
+import { authGuard, roleGuard } from "../middleware/index.js";
+import { userController } from "../controllers/index.js";
 
 export const userRouter = new Router();
 
-userRouter.post("/profile", authGuard, userProfileController);
+userRouter.post("/profile", authGuard, userController);
