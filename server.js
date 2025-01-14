@@ -1,7 +1,16 @@
-import app from './src/app.js';
-import dotenv from 'dotenv';
+import app from "./src/app.js";
+import { connectMongo } from "./src/database/index.js";
+import { logger } from "./src/utils/index.js";
 
-dotenv.config();
-const PORT = process.env.PORT || 3000;
+const startApp = async () => {
+  try {
+    await connectMongo();
+    app.listen(3000, () => {
+      logger.info(`Server started on port  ${3000}`);
+    });
+  } catch (error) {
+    logger.error(error.message);
+  }
+};
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+startApp();
