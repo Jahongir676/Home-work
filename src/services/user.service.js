@@ -1,17 +1,37 @@
-import { User } from "../modules/index.js";
-import { ApiError } from "../utils/index.js";
-import { statusCodes } from "../utils/index.js";
+import pool from "../database/index.js";
 
-export const userService = {
-  getUserProfile: async (email) => {
-    try {
-      const user = await User.findOne({ email }).select({ password: 0 });
-      if (!user) {
-        throw new ApiError(statusCodes.NOT_FOUND, "User not found");
-      }
-      return user;
-    } catch (error) {
-      throw new ApiError(statusCodes.INTERNAL_SERVER_ERROR, "Failed to fetch user profile");
-    }
-  },
+export const getAllUserService = async (query, data) => {
+  try {
+    const data = await pool.query(query, [...data]);
+    return data.rows;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getOneUserService = async (query, id) => {
+  try {
+    const userData = await pool.query(query, [id]);
+    return userData;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateUserService = async (query, id) => {
+  try {
+    const updateUser = await pool.query(query, id);
+    return updateUser;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteUserService = async (query, id) => {
+  try {
+    const deleteUser = await pool.query(query, id);
+    return deleteUser;
+  } catch (error) {
+    return error;
+  }
 };

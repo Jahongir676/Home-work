@@ -1,87 +1,149 @@
-import { User, OTP } from "../modules/index.js";
-import { generateJwtToken, verifyJwtToken } from "../utils/utiles.js";
-import { statusCodes, ApiError } from "../utils/index.js";
-import bcrypt from "bcrypt";
+import { logger } from '../utils/logger.js'
+import pool from '../database/index.js'
+import { comparePassword, generateToken, hashPassword } from '../utils/index.js'
 
-export const authService = {
-  findUserByEmail: async (email) => {
+export const register = async (user) => {
     try {
-      return await User.findOne({ email });
-    } catch (error) {
-      throw new ApiError(statusCodes.INTERNAL_SERVER_ERROR, "Failed to find user");
-    }
-  },
+        const currentUser = await findUser('email', user.email)
 
-  registerUser: async (userData, otp) => {
+        if (currentUser) {
+            throw new Error('user already exists!')
+        }
+
+        const result = await createUser(user)
+
+        return result
+    } catch (error) {
+        logger.error(error)
+        throw new Error(error)
+    }
+}
+
+export const login = async (user) => {
     try {
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
-      const user = new User({ ...userData, password: hashedPassword });
-      await user.save();
+        const currentUser = await findUser('email', user.email)
 
-      const dbOtp = new OTP({
-        user_id: user._id,
-        otp_code: otp,
-      });
-      await dbOtp.save();
+        if (!currentUser) {
+            throw new Error('user not found!')
+        }
 
-      return user;
+        const isEqual = await comparePassword(
+            user.password,
+            currentUser.password,
+        )
+
+        if (!isEqual) {
+            throw new Error('User defailt is wrong!')
+        }
+
+        const accessToken = await generateToken('access', {
+            sub: currentUser.id,
+            email: currentUser.email,
+            role: currentUser.role,
+            username: currentUser.username,
+        })
+
+        const refreshToken = await generateToken('refresh', {
+            sub: currentUser.id,
+            email: currentUser.email,
+            role: currentUser.role,
+        })
+
+        return {
+            accessToken,
+            refreshToken,
+        }
     } catch (error) {
-      throw new ApiError(statusCodes.INTERNAL_SERVER_ERROR, "Failed to register user");
+        logger.error(error)
+        throw new Error(error)
     }
-  },
+}
 
-  loginUser: async (email, password) => {
+export const createUser = async (user) => {
     try {
-      const user = await User.findOne({ email });
-      if (!user) return null;
+        const queryString = `
+      INSERT INTO users (
+        username,
+        email,
+        password,
+        phone_number
+      )
+        VALUES
+        (
+        $1,
+        $2,
+        $3,
+        $4
+        )
+      RETURNING *
+    `
 
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) return null;
+        const hashedPassword = await hashPassword(user.password)
+        const result = await pool.query(queryString, [
+            user.username,
+            user.email,
+            hashedPassword,
+            user.phone_number,
+        ])
 
-      const payload = {
-        sub: user.email,
-        role: user.role,
-      };
-
-      const accessToken = generateJwtToken(payload, process.env.JWT_ACCESS_SECRET, process.env.JWT_ACCESS_EXPIRES_IN);
-      const refreshToken = generateJwtToken(payload, process.env.JWT_REFRESH_SECRET, process.env.JWT_REFRESH_EXPIRES_IN);
-
-      return { accessToken, refreshToken };
+        return result.rows[0]
     } catch (error) {
-      throw new ApiError(statusCodes.INTERNAL_SERVER_ERROR, "Failed to login user");
+        logger.error(error)
+        throw new Error(error)
     }
-  },
+}
 
-  refreshToken: async (token) => {
+export const findById = (id) => {
     try {
-      const decoded = verifyJwtToken(token, process.env.JWT_REFRESH_SECRET);
-      const newAccessToken = generateJwtToken(
-        { sub: decoded.sub, role: decoded.role },
-        process.env.JWT_ACCESS_SECRET,
-        process.env.JWT_ACCESS_EXPIRES_IN
-      );
-
-      return newAccessToken;
-    } catch (error) {
-      throw new ApiError(statusCodes.FORBIDDEN, "Invalid refresh token");
+    } catch (e) {
+        throw new Error(e)
     }
-  },
+}
 
-  verifyOtp: async (email, otp) => {
+export const findByEmail = (email) => {
     try {
-      const user = await User.findOne({ email });
-      if (!user) throw new ApiError(statusCodes.NOT_FOUND, "User not found");
-
-      const dbOtp = await OTP.findOne({ user_id: user._id });
-      if (!dbOtp || dbOtp.otp_code !== otp) return false;
-
-      user.is_active = true;
-      await user.save();
-      await OTP.deleteOne({ user_id: user._id });
-
-      return true;
-    } catch (error) {
-      throw new ApiError(statusCodes.INTERNAL_SERVER_ERROR, "Failed to verify OTP");
+    } catch (e) {
+        throw new Error(e)
     }
-  },
-};
+}
+
+export const findByUsername = (username) => {
+    try {
+    } catch (e) {
+        throw new Error(e)
+    }
+}
+
+export const findUser = async (type, data) => {
+    let queryString = ''
+
+    switch (type) {
+        case 'id':
+            queryString = `
+      SELECT * FROM users 
+        WHERE id = $1;
+      `
+            break
+
+        case 'email':
+            queryString = `
+        SELECT * FROM users 
+          WHERE email = $1;
+        `
+            break
+        case 'username':
+            queryString = `
+        SELECT * FROM users 
+          WHERE username = $1;
+        `
+            break
+
+        default:
+            queryString = `SELECT * FROM users;`
+            break
+    }
+
+    const result = await pool.query(queryString, [data])
+
+    return result.rows[0]
+}

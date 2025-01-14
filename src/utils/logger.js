@@ -1,22 +1,14 @@
-import { Logtail } from "@logtail/node";
-import { LogtailTransport } from "@logtail/winston";
-import { createLogger, format } from "winston";
-import { config } from "dotenv";
-
-
-config()
-
-
-const logtail = new Logtail(process.env.LOGGER_TOKEN)
+import { createLogger, transports, format } from 'winston'
 
 export const logger = createLogger({
-  level: "silly",
-  format: format.combine(
-    format.timestamp(),
-    format.json(),
-    format.colorize({all: true})
-  ),
-  transports: [
-    new LogtailTransport(logtail)
-  ]
+    level: 'silly',
+    format: format.combine(
+        format.timestamp(),
+        format.json(),
+        format.colorize({ all: true })
+    ),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: 'application.log' }),
+    ],
 })

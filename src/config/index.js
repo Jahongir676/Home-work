@@ -1,2 +1,7 @@
-export * from "./app.js"
-export * from "./db.js"
+import db from './db.js'
+import application from './app.js'
+
+export const config = {
+    ...db,
+    ...application,
+}
