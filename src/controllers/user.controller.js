@@ -1,11 +1,17 @@
-export const userController = (req, res, next) => {
+import { userService } from "../services/index.js";
+import { statusCodes, ApiError } from "../utils/index.js";
+
+export const userProfileController = async (req, res, next) => {
   try {
-    const currentUser = req.user;
+    const userEmail = req.user.sub;
+    const userProfile = await userService.getUserProfile(userEmail);
 
-    console.log(currentUser);
+    if (!userProfile) {
+      return res.status(statusCodes.NOT_FOUND).send("User not found.");
+    }
 
-    return res.send(currentUser);
+    res.send(userProfile);
   } catch (error) {
-    next(error);
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
   }
 };

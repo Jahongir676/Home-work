@@ -1,60 +1,57 @@
-import { Article } from "../modules/index.js"
-import { statusCodes, errorMessages, ApiError } from "../utils/index.js"
+import { articleService } from "../services/index.js";
+import { statusCodes, ApiError } from "../utils/index.js";
 
+export const getArticleController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const article = id ? await articleService.getArticleById(id) : await articleService.getAllArticles();
+
+    if (!article) {
+      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
+    }
+
+    res.send(article);
+  } catch (error) {
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+  }
+};
 
 export const createArticleController = async (req, res, next) => {
-    try {
-        const data = req.body
-        const newArticle = new Article(data)
-        const result = await newArticle.save()
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
-        }
-    } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
-    }
-}
+  try {
+    const articleData = req.body;
+    await articleService.createArticle(articleData);
+    res.status(statusCodes.CREATED).send("Article created successfully.");
+  } catch (error) {
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+  }
+};
 
-export const getAllArticles = async (req, res, next) => {
-    try {
-        const articles = await Article.find()
-        if(!articles){
-            return res.status(statusCodes.NOT_FOUND).send('Article Not Found')
-        }
-        return res.status(statusCodes.OK).send(articles)
-    } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
-    }
-}
+export const updateArticleController = async (req, res, next) => {
+  try {
+    const articleData = req.body;
+    const updated = await articleService.updateArticle(articleData);
 
-export const updateArticle = async (req, res, next) => {
-    try {
-        const id = req.params.id
-        const newCategfory = req.body
-        const result = await Article.findByIdAndUpdate(id, newCategfory)
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
-        }
-    } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
+    if (!updated) {
+      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
     }
-}
 
-export const deleteArticle = async (req, res, next) => {
-    try {
-        const id = req.params.id
-        const newCategfory = req.body
-        const result = await Article.findByIdAndUpdate(id, newCategfory)
-        if(result){
-            return res.status(statusCodes.CREATED).send('Created')
-        }else{
-            return res.status(statusCodes.CONFLICT).send('OOPS')
-        }
-    } catch (error) {
-        next(new ApiError(error.statusCode, error.message))
+    res.send("Article updated successfully.");
+  } catch (error) {
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+  }
+};
+
+export const deleteArticleController = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const deleted = await articleService.deleteArticle(id);
+
+    if (!deleted) {
+      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
     }
-}
+
+    res.send("Article deleted successfully.");
+  } catch (error) {
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+  }
+};

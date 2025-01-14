@@ -1,27 +1,23 @@
-import mongoose from "mongoose"
+import { Schema, model } from "mongoose";
 
-const articleSchema = mongoose.Schema({
-    title: {
-        type: String, 
-        required: true
-    },
-    content: {
-        type: String,
-        required: true
-    },
-    userId: {
-        type: mongoose.Schema.ObjectId, 
-        ref: 'users',
-        required: true
+const articleSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    content: String,
+    authorId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     categoryId: {
-        type: mongoose.Schema.ObjectId, 
-        ref: 'categorys',
-        required: true
-    }
-},
-{
-    timestamp: true
-})
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export const Article = mongoose.model('article', articleSchema)
+export const Article = model("Article", articleSchema);
