@@ -1,57 +1,60 @@
-import { articleService } from "../services/index.js";
-import { statusCodes, ApiError } from "../utils/index.js";
+import { createArticleService, deleteArticleService, getAllArticlesService, updateArticleService } from "../service/index.js"
+import { logger } from "../utils/index.js"
 
-export const getArticleController = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const article = id ? await articleService.getArticleById(id) : await articleService.getAllArticles();
-
-    if (!article) {
-      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
-    }
-
-    res.send(article);
-  } catch (error) {
-    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
-  }
-};
 
 export const createArticleController = async (req, res, next) => {
-  try {
-    const articleData = req.body;
-    await articleService.createArticle(articleData);
-    res.status(statusCodes.CREATED).send("Article created successfully.");
-  } catch (error) {
-    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
-  }
-};
+    try {
+        const result = await createArticleService(req.body)
+        if(!result.success){
+            return res.send("Nimadur haqo ketdi")
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
+
+export const getAllArticlesController = async (req, res, next) => {
+    try {
+        const page = req.query.page || 1
+        const limit = req.query.limit || 5
+        const result = await getAllArticlesService(page, limit)
+        if(!result.success){
+            return res.status(result.status).send(result.message)
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
 export const updateArticleController = async (req, res, next) => {
-  try {
-    const articleData = req.body;
-    const updated = await articleService.updateArticle(articleData);
-
-    if (!updated) {
-      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
+    try {
+        const id = req.params.id
+        const newArticle = req.body
+        const result = await updateArticleService(id, newArticle)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
     }
-
-    res.send("Article updated successfully.");
-  } catch (error) {
-    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
-  }
-};
+}
 
 export const deleteArticleController = async (req, res, next) => {
-  try {
-    const { id } = req.body;
-    const deleted = await articleService.deleteArticle(id);
-
-    if (!deleted) {
-      return res.status(statusCodes.NOT_FOUND).send("Article not found.");
+    try {
+        const id = req.params.id
+        const result = await deleteArticleService(id)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
     }
-
-    res.send("Article deleted successfully.");
-  } catch (error) {
-    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
-  }
-};
+}

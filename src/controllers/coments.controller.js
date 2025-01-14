@@ -1,50 +1,64 @@
-import ComentsModule from '../models/coments.model.js';
+import { addComentService, getMyComentsService, getAllComentsService, deleteComentService } from "../service/index.js"
+import { logger } from "../utils/index.js"
 
-export const createComment = async (req, res) => {
-  try {
-    const comment = new ComentsModule(req.body);
-    await comment.save();
-    res.status(201).json(comment);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const addComentController = async (req, res, next) => {
+    try {
+        let data = req.body
+        data.userId = req.user._id
+        const result = await addComentService(data)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const getAllComments = async (req, res) => {
-  try {
-    const comments = await ComentsModule.find().populate('course_id user_id');
-    res.status(200).json(comments);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const getMyComentsController = async (req, res, next) => {
+    try {
+        const userId = req.user._id
+        const page = req.query.page || 1
+        const limit = req.query.limit || 5
+        const result = await getMyComentsService(userId, page, limit)
+        if(!result.success){
+            return res.status(result.status).send(result.message)
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const getCommentById = async (req, res) => {
-  try {
-    const comment = await ComentsModule.findById(req.params.id).populate('course_id user_id');
-    if (!comment) return res.status(404).json({ message: 'Comment not found' });
-    res.status(200).json(comment);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
-export const updateComment = async (req, res) => {
-  try {
-    const comment = await ComentsModule.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!comment) return res.status(404).json({ message: 'Comment not found' });
-    res.status(200).json(comment);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+export const getAllComentsController = async (req, res, next) => {
+    try {
+        const page = req.query.page
+        const limit = req.query.limit
+        const result = await getAllComentsService(userId, page, limit)
+        if(!result.success){
+            return res.status(result.status).send(result.message)
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}
 
-export const deleteComment = async (req, res) => {
-  try {
-    const comment = await ComentsModule.findByIdAndDelete(req.params.id);
-    if (!comment) return res.status(404).json({ message: 'Comment not found' });
-    res.status(200).json({ message: 'Comment deleted successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+
+export const deleteComentController = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const result = await deleteComentService(id)
+        if(!result.success){
+            return res.send('Nimadur hato ketdi')
+        }
+        return res.status(result.status).send(result.message)
+    } catch (error) {
+        logger.error(error)
+        next(error)
+    }
+}

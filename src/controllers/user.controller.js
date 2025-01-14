@@ -1,17 +1,26 @@
-import { userService } from "../services/index.js";
-import { statusCodes, ApiError } from "../utils/index.js";
+import { User } from "../modules/index.js";
+import { statusCodes, errorMessages, ApiError, logger } from "../utils/index.js";
 
-export const userProfileController = async (req, res, next) => {
+export const userController = async (req, res, next) => {
   try {
-    const userEmail = req.user.sub;
-    const userProfile = await userService.getUserProfile(userEmail);
+    const payload = req.user;
 
-    if (!userProfile) {
-      return res.status(statusCodes.NOT_FOUND).send("User not found.");
+    console.log(payload);
+    const currentUser = await User.findOne({ email: payload.sub }).select({
+      password: 0,
+    });
+
+    console.log(currentUser);
+
+    if (!currentUser) {
+      return res
+        .status(statusCodes.NOT_FOUND)
+        .send(errorMessages.USER_NOT_FOUND);
     }
 
-    res.send(userProfile);
+    return res.send(currentUser);
   } catch (error) {
-    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+    logger.error(error)
+    next(new ApiError(error.statusCodes, error.message));
   }
 };

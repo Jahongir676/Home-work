@@ -2,12 +2,13 @@ import nodemailer from "nodemailer";
 import { config } from "dotenv";
 
 config();
+console.log(process.env.MAILTRAP_PASSWORD);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "khkhamidullo@gmail.com",
-    pass: process.env.APP_PASSWORD,
+    user: process.env.MAILTRAP_USERNAME,
+    pass: process.env.MAILTRAP_PASSWORD,
   },
 });
 

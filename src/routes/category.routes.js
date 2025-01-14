@@ -1,11 +1,14 @@
-import { Router } from "express"
-import { createCategoryController, getAllCategories, updateCategory, deleteCategory } from "../controllers/index.js"
-import { roleGuard, authGuard } from "../middleware/index.js"
+import { 
+    createCategoryController, getAllCategoriesController,
+    updateCategoryController, deleteCategoryController
+} from "../controllers/index.js";
 
-export const categoryRoter = Router()
+import { Router } from 'express';
+import { authGuard, roleGuard } from "../middleware/index.js";
 
-categoryRoter.post('/create', authGuard, roleGuard(['admin', 'superAdmin']), createCategoryController)
-categoryRoter.get('/get', authGuard, roleGuard(['admin', 'superAdmin']), getAllCategories)
-categoryRoter.put('/update/:id', authGuard, roleGuard(['admin', 'superAdmin']), updateCategory)
-categoryRoter.delete('/delete/:id', authGuard, roleGuard(['admin', 'superAdmin']), deleteCategory)
+export const categoryRouter = Router()
 
+categoryRouter.post('/create', authGuard, roleGuard(['admin']), createCategoryController)
+categoryRouter.get('/get', authGuard, roleGuard(['admin']), getAllCategoriesController)
+categoryRouter.put('/update/:id', authGuard, roleGuard(['admin']), updateCategoryController)
+categoryRouter.delete('/delete/:id', authGuard, roleGuard(['admin']), deleteCategoryController)
