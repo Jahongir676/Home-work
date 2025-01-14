@@ -1,69 +1,64 @@
-import jwt from "jsonwebtoken";
-import { User } from "../modules/index.js";
-import { statusCodes, errorMessages, ApiError } from "../utils/index.js";
+import { generateJwtToken, verifyJwtToken } from "../utils/utiles.js";
+import { otpGenerator, sendMail } from "../helpers/index.js";
+import { authService } from "../services/index.js";
+import { statusCodes, ApiError } from "../utils/index.js";
 
 export const registerController = async (req, res, next) => {
   try {
-    const { email, role } = req.body;
-    const currentUser = await User.findOne({ email });
+    const { email } = req.body;
+    const existingUser = await authService.findUserByEmail(email);
 
-    if (!currentUser) {
-      console.log({ currentUser });
-      const user = new User(req.body);
-      console.log({ user });
-
-      await user.save();
-      return res.status(statusCodes.CREATED).send("created");
+    if (existingUser) {
+      return res.status(statusCodes.CONFLICT).send("Email already exists.");
     }
-    return res
-      .status(statusCodes.CONFLICT)
-      .send(errorMessages.EMAIL_ALREADY_EXISTS);
+
+    const otp = otpGenerator();
+    await sendMail(email, "OTP Verification", `Your OTP: ${otp}`);
+    const user = await authService.registerUser(req.body, otp);
+
+    res.status(statusCodes.CREATED).send("User registered successfully. OTP sent.");
   } catch (error) {
-    console.log(error)
-    next(new ApiError(error.statusCode, error.message));
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
   }
 };
 
 export const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const currentUser = await User.findOne({ email });
+    const tokens = await authService.loginUser(email, password);
 
-    if (!currentUser) {
-      return res
-        .status(statusCodes.NOT_FOUND)
-        .send(errorMessages.USER_NOT_FOUND);
+    if (!tokens) {
+      return res.status(statusCodes.UNAUTHORIZED).send("Invalid credentials.");
     }
 
-    const passwordIsEqual = currentUser.compare(password);
-
-    if (!passwordIsEqual) {
-      return res
-        .status(statusCodes.BAD_REQUEST)
-        .send(errorMessages.INVALID_CREDENTIALS);
-    }
-
-    const payload = {
-      sub: email,
-      role: currentUser.role,
-    };
-
-    const accessSecretKey = process.env.JWT_ACCESS_SECRET;
-    const refreshSecretKey = process.env.JWT_REFRESH_SECRET;
-
-    const accessToken = jwt.sign(payload, accessSecretKey, {
-      expiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
-    });
-
-    const refreshToken = jwt.sign(payload, refreshSecretKey, {
-      expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
-    });
-
-    return res.send({
-      accessToken,
-      refreshToken,
-    });
+    res.send(tokens);
   } catch (error) {
-    next(new ApiError(error.statusCode, error.message));
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
+  }
+};
+
+export const refreshTokenController = async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    const newAccessToken = await authService.refreshToken(token);
+
+    res.send({ accessToken: newAccessToken });
+  } catch (error) {
+    next(new ApiError(statusCodes.FORBIDDEN, "Invalid refresh token."));
+  }
+};
+
+export const verifyController = async (req, res, next) => {
+  try {
+    const { email, otp } = req.body;
+    const isVerified = await authService.verifyOtp(email, otp);
+
+    if (!isVerified) {
+      return res.status(statusCodes.BAD_REQUEST).send("Invalid OTP.");
+    }
+
+    res.send("User verified successfully.");
+  } catch (error) {
+    next(new ApiError(statusCodes.INTERNAL_SERVER_ERROR, error.message));
   }
 };

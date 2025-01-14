@@ -1,24 +1,16 @@
-import app from './src/app.js'
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import app from "./src/app.js";
+import { connectMongodb } from "./src/database/index.js";
+import { logger } from "./src/utils/index.js";
 
-dotenv.config();
-
-const PORT = process.env.PORT || 5000;
-const connectDB = async () => {
+const startApp = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await connectMongodb();
+    app.listen(3000, () => {
+      logger.info(`Server started on port  ${3000}`);
     });
-    console.log('MongoDB connected successfully');
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error.message);
-    process.exit(1);
+    logger.error(error.message);
   }
 };
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  connectDB();
-});
+startApp();

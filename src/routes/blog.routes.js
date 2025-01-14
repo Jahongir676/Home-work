@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { blogController } from "../controllers/index.js";
-import { authGuard } from "../middleware/auth.middleware.js";
-import { roleGuard } from "../middleware/guard.middleware.js";
+import { authGuard, roleGuard } from "../middleware/index.js";
 
 export const blogRouter = new Router();
 
