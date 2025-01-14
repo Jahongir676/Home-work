@@ -1,16 +1,11 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { config } from 'dotenv'
+config()
 
-dotenv.config();
-
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log('MongoDB connected');
-    } catch (err) {
-        console.error(err.message);
-        process.exit(1);
-    }
-};
-
-export default connectDB;
+export default {
+    postgres: {
+        user: process.env.PG_USER,
+        password: process.env.PG_PASSWORD,
+        host: process.env.PG_HOST,
+        port: process.env.PG_PORT,
+    },
+}

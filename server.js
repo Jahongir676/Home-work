@@ -1,16 +1,17 @@
-import app from "./src/app.js";
-import { connectMongodb } from "./src/database/index.js";
-import { logger } from "./src/utils/index.js";
+import app from './src/app.js'
+import { config } from './src/config/index.js'
+import { logger } from './src/utils/logger.js'
+import pool from './src/database/index.js'
 
-const startApp = async () => {
-  try {
-    await connectMongodb();
-    app.listen(3000, () => {
-      logger.info(`Server started on port  ${3000}`);
-    });
-  } catch (error) {
-    logger.error(error.message);
-  }
-};
+const bootstrap = async () => {
+    try {
+        app.listen(config.app.port, () => {
+            logger.info(`server running on port ${config.app.port}`)
+        })
+        logger.info(await pool.query('SELECT now()').rows)
+    } catch (error) {
+        logger.error(error)
+    }
+}
 
-startApp();
+bootstrap()

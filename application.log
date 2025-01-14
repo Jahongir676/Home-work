@@ -1,0 +1,43 @@
+[31m{"level":"error","timestamp":"2024-11-14T10:35:34.934Z"}[39m
+[31m{"level":"error","timestamp":"2024-11-14T10:36:16.455Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T10:39:16.658Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T11:09:05.930Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T11:09:05.933Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T11:09:35.216Z"}[39m
+[32m{"level":"info","message":"server running on port 3001","timestamp":"2024-11-14T11:09:35.219Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T11:10:19.084Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T11:10:19.087Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T11:14:53.443Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T11:14:53.447Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T11:58:11.553Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T11:58:11.561Z"}[39m
+[31m{"code":"42601","file":"scan.l","length":93,"level":"error","line":"1248","name":"error","position":"34","routine":"scanner_yyerror","severity":"ERROR","timestamp":"2024-11-14T12:01:01.251Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T12:13:06.612Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T12:13:06.615Z"}[39m
+[31m{"code":"42710","file":"typecmds.c","length":89,"level":"error","line":"1179","name":"error","routine":"DefineEnum","severity":"ERROR","timestamp":"2024-11-14T12:13:41.075Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T12:14:36.122Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T12:14:36.125Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T12:58:25.335Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T12:58:25.338Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T13:31:27.826Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T13:31:27.829Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T13:32:53.297Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T13:32:53.300Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T21:43:38.056Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T21:43:38.059Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-14T22:07:15.346Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-14T22:07:15.356Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T00:26:15.789Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T00:26:15.793Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T09:29:42.001Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T09:29:42.004Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T09:33:51.599Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T09:33:51.602Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T09:54:49.514Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T09:54:49.517Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T12:49:23.468Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T12:49:23.472Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-15T12:49:42.764Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-15T12:49:42.768Z"}[39m
+[32m{"level":"info","timestamp":"2024-11-16T08:03:18.800Z"}[39m
+[32m{"level":"info","message":"server running on port 3000","timestamp":"2024-11-16T08:03:18.804Z"}[39m
